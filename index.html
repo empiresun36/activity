@@ -210,12 +210,12 @@
     <div class="reg-sub">請先填寫報名資料，<br>才能開始尋找社區秘密基地！</div>
 
     <div class="form-group">
-      <label>👶 小朋友姓名</label>
+      <label>👶 小朋友姓名（或家長姓名）</label>
       <input type="text" id="regName" placeholder="例：王小明" />
     </div>
     <div class="form-group">
-      <label>🏠 戶號（門牌號碼）</label>
-      <input type="text" id="regUnit" placeholder="例：A棟 1001室" />
+      <label>🏠 戶號（或門牌號碼）</label>
+      <input type="text" id="regUnit" placeholder="例：B3-27F" />
     </div>
     <div class="form-group">
       <label>📱 家長聯絡電話</label>
@@ -411,8 +411,8 @@ function startActivity() {
   const name  = document.getElementById('regName').value.trim();
   const unit  = document.getElementById('regUnit').value.trim();
   const phone = document.getElementById('regPhone').value.trim();
-  if (!name)  { alert('請填寫小朋友的姓名！'); document.getElementById('regName').focus(); return; }
-  if (!unit)  { alert('請填寫戶號（門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
+  if (!name)  { alert('請填寫小朋友姓名（或家長姓名）！'); document.getElementById('regName').focus(); return; }
+  if (!unit)  { alert('請填寫戶號（或門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
   if (!phone) { alert('請填寫家長聯絡電話！'); document.getElementById('regPhone').focus(); return; }
   if (phone.replace(/\D/g,'').length < 8) { alert('請輸入正確的電話號碼（至少8碼）！'); return; }
 
