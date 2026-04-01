@@ -210,12 +210,12 @@
     <div class="reg-sub">請先填寫報名資料，<br>才能開始尋找社區秘密基地！</div>
 
     <div class="form-group">
-      <label>👶 小朋友姓名（或家長姓名）</label>
+      <label>👶 小朋友姓名</label>
       <input type="text" id="regName" placeholder="例：王小明" />
     </div>
     <div class="form-group">
-      <label>🏠 戶號（或門牌號碼）</label>
-      <input type="text" id="regUnit" placeholder="例：B5-37F" />
+      <label>🏠 戶號（門牌號碼）</label>
+      <input type="text" id="regUnit" placeholder="例：A棟 1001室" />
     </div>
     <div class="form-group">
       <label>📱 家長聯絡電話</label>
@@ -285,7 +285,7 @@
     <div class="step"><div class="step-num">1</div><span>從自家出發，在社區各處尋找 QR Code 立牌</span></div>
     <div class="step"><div class="step-num">2</div><span>點上方「📷 掃描 QR Code」按鈕開啟相機，對準立牌自動集章</span></div>
     <div class="step"><div class="step-num">3</div><span>集滿 10 個地點後，點下方按鈕領取完成憑證並截圖保存</span></div>
-    <div class="step"><div class="step-num">4</div><span>最後一站到 🌸 花園，憑截圖憑證兌換獎品及領取補給！</span></div>
+    <div class="step"><div class="step-num">4</div><span>最後到 🌸 花園，憑截圖憑證兌換獎品及領取補給！</span></div>
     <div style="margin-top:12px;padding:10px 14px;background:#FFF3F3;border-radius:12px;border-left:4px solid #FF6B35;font-size:12px;color:#CC4400;line-height:1.8;">
       ☔ <b>雨天備案：</b>若遇大雨，戶外掃描點當日取消，兌換地點改至大廳，集章數不滿10個亦可兌獎。
     </div></div>
@@ -333,7 +333,41 @@
     </div>
     <div class="voucher-stamp-row" id="v-stamps"></div>
     <div class="voucher-code" id="v-code">-</div>
-    <div class="voucher-note">※ 請截圖此畫面，至🌸 花園（遇大雨改大廳）出示憑證換取禮物<br>※ 每戶每人限換乙份，工作人員將核對姓名與電話</div>
+    <div class="voucher-note">※ 請截圖此畫面，至🌸 花園出示憑證換取禮物<br>※ 每戶每人限換乙份，工作人員將核對姓名、戶號與電話</div>
+
+    <!-- 活動團隊按鈕 -->
+    <button onclick="toggleTeam()" style="margin-top:14px;width:100%;padding:10px;background:#F0F9FF;border:2px solid #4ECDC4;border-radius:12px;color:#2D9B85;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;">
+      👥 活動團隊
+    </button>
+
+    <!-- 活動團隊展開內容 -->
+    <div id="teamPanel" style="display:none;margin-top:10px;text-align:left;border-radius:14px;overflow:hidden;border:1.5px solid #EEE;">
+
+      <!-- 所有成員列表 -->
+      <div style="background:#F8F8F8;padding:10px 14px;">
+        <div style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">本次活動籌備團隊</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">
+          <span onclick="showProfile('liang')" style="padding:5px 10px;background:white;border:1.5px solid #4ECDC4;border-radius:20px;font-size:13px;color:#2D9B85;cursor:pointer;font-weight:700;">梁哲嘉</span>
+          <span onclick="showProfile('yu')" style="padding:5px 10px;background:white;border:1.5px solid #4ECDC4;border-radius:20px;font-size:13px;color:#2D9B85;cursor:pointer;font-weight:700;">余盈賢</span>
+          <span onclick="showProfile('fang')" style="padding:5px 10px;background:white;border:1.5px solid #4ECDC4;border-radius:20px;font-size:13px;color:#2D9B85;cursor:pointer;font-weight:700;">方冠凱</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">游一龍</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">范志賢</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">游進銘</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">方銘全</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">林育萍</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">丘源安</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">李小剛</span>
+        </div>
+        <div style="font-size:11px;color:#AAA;text-align:center;margin-top:8px;">點選綠色名字查看介紹</div>
+      </div>
+
+      <!-- 個人介紹卡片 -->
+      <div id="profileCard" style="display:none;padding:14px;background:white;border-top:1.5px solid #EEE;">
+        <div id="profileContent"></div>
+        <button onclick="closeProfile()" style="margin-top:10px;width:100%;padding:8px;background:#F0F0F0;border:none;border-radius:10px;color:#666;font-size:13px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;">✕ 關閉</button>
+      </div>
+    </div>
+
   </div>
   <div class="screenshot-hint">📸 請截圖此畫面保存</div>
 </div>
@@ -377,8 +411,8 @@ function startActivity() {
   const name  = document.getElementById('regName').value.trim();
   const unit  = document.getElementById('regUnit').value.trim();
   const phone = document.getElementById('regPhone').value.trim();
-  if (!name)  { alert('請填寫小朋友姓名（或家長姓名）！'); document.getElementById('regName').focus(); return; }
-  if (!unit)  { alert('請填寫戶號（或門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
+  if (!name)  { alert('請填寫小朋友的姓名！'); document.getElementById('regName').focus(); return; }
+  if (!unit)  { alert('請填寫戶號（門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
   if (!phone) { alert('請填寫家長聯絡電話！'); document.getElementById('regPhone').focus(); return; }
   if (phone.replace(/\D/g,'').length < 8) { alert('請輸入正確的電話號碼（至少8碼）！'); return; }
 
@@ -649,6 +683,96 @@ function createStars() {
       c.appendChild(s);
     }
   });
+}
+
+// ===== 活動團隊 =====
+const PROFILES = {
+  liang: {
+    name: '梁哲嘉',
+    loc: 'C棟 337-2號 17樓',
+    slogan: '社區的守護者·行動的領航員',
+    tags: ['永和秀朗派出所義警', 'BNI菁商分會創會主席', '永和獅子會監事', '不動產專業副理'],
+    strengths: [
+      '以不動產專業監督公設維護與財務，讓家園保值',
+      '曾領導200人救災團隊，資源整合、冷靜應對',
+    ],
+    promises: [
+      ['家園守護', '優化安全SOP，盯門禁與電梯'],
+      ['社區活力', '舉辦節慶講座，找回鄰里溫度'],
+      ['透明溝通', '導入商業精神，高效治理'],
+    ],
+  },
+  yu: {
+    name: '余盈賢',
+    loc: 'C棟 337號 29樓',
+    slogan: '讓專業守護我們的家，用溫度連結鄰里情',
+    tags: ['企業講師、蓋洛普教練', '外商行銷主管', '台北中型社區4屆主委、3屆監委'],
+    strengths: [
+      '善化紛爭為社區共識，高效管理庶務',
+      '曾管3,000萬基金，成功爭取免費RC水塔',
+    ],
+    promises: [
+      ['行動橋樑', '溝通管委會與住戶'],
+      ['資產保值', '嚴格監督，省錢即保值'],
+      ['智慧共融', 'AI融入社區治理'],
+    ],
+  },
+  fang: {
+    name: '方冠凱',
+    loc: 'B棟 335-2號 26樓',
+    slogan: '在地傳承守護·精實紀律執行',
+    tags: ['在地成長32年', '職業軍人背景', '100+車輛管理', '帶領10人專業團隊'],
+    strengths: [
+      '日日巡視、精準紀錄，確保高品質標準',
+      '軍事級嚴謹執行消防設施巡察與門禁管理',
+    ],
+    promises: [
+      ['精準執行', '公設維護落實「日巡處錄」'],
+      ['安全守護', '防災門禁軍事級嚴謹'],
+      ['世代共融', '規劃創意鄰里活動'],
+    ],
+  },
+};
+
+function toggleTeam() {
+  const panel = document.getElementById('teamPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  if(panel.style.display === 'none') closeProfile();
+}
+
+function showProfile(key) {
+  const p = PROFILES[key];
+  if(!p) return;
+  const card = document.getElementById('profileCard');
+  const content = document.getElementById('profileContent');
+
+  const tagsHtml = p.tags.map(t =>
+    `<span style="display:inline-block;padding:2px 8px;background:#E8FFF9;border-radius:10px;font-size:11px;color:#2D9B85;margin:2px;">${t}</span>`
+  ).join('');
+
+  const strengthsHtml = p.strengths.map(s =>
+    `<li style="font-size:12px;color:#555;margin-bottom:4px;">● ${s}</li>`
+  ).join('');
+
+  const promisesHtml = p.promises.map(([title, desc]) =>
+    `<div style="margin-bottom:5px;font-size:12px;"><span style="font-weight:700;color:#FF6B35;">【${title}】</span><span style="color:#555;">${desc}</span></div>`
+  ).join('');
+
+  content.innerHTML = `
+    <div style="font-size:16px;font-weight:900;color:#2D3436;">${p.name}</div>
+    <div style="font-size:12px;color:#888;margin-bottom:6px;">📍 ${p.loc}</div>
+    <div style="font-size:12px;color:#4ECDC4;font-weight:700;margin-bottom:8px;">「${p.slogan}」</div>
+    <div style="margin-bottom:8px;">${tagsHtml}</div>
+    <div style="font-size:12px;font-weight:700;color:#2D3436;margin-bottom:4px;">核心優勢</div>
+    <ul style="margin:0 0 8px 0;padding:0;list-style:none;">${strengthsHtml}</ul>
+    <div style="font-size:12px;font-weight:700;color:#2D3436;margin-bottom:4px;">三大承諾</div>
+    ${promisesHtml}
+  `;
+  card.style.display = 'block';
+}
+
+function closeProfile() {
+  document.getElementById('profileCard').style.display = 'none';
 }
 
 // ===== INIT =====
