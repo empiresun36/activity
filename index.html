@@ -135,6 +135,7 @@
   .step:nth-child(2) .step-num{background:#D6F5F2;color:var(--sky);}
   .step:nth-child(3) .step-num{background:#FFE8F2;color:var(--pink);}
   .step:nth-child(4) .step-num{background:#E8FFE8;color:#4CAF50;}
+  .step:nth-child(5) .step-num{background:#EDE8FF;color:#7C4DFF;}
 
   /* COMPLETE BTN */
   .complete-btn{display:block;width:calc(100% - 40px);margin:10px 20px 30px;padding:16px;background:linear-gradient(135deg,var(--sun),var(--orange));color:white;font-size:17px;font-weight:900;border:none;border-radius:20px;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,53,.35);transition:all .2s;font-family:'Noto Sans TC',sans-serif;}
@@ -209,16 +210,16 @@
     <div class="reg-sub">請先填寫報名資料，<br>才能開始尋找社區秘密基地！</div>
 
     <div class="form-group">
-      <label>👶 家長姓名（或小朋友姓名）</label>
+      <label>👶 小朋友姓名</label>
       <input type="text" id="regName" placeholder="例：王小明" />
     </div>
     <div class="form-group">
-      <label>🏠 戶號（或門牌號碼）</label>
-      <input type="text" id="regUnit" placeholder="例：B3-1F" />
+      <label>🏠 戶號（門牌號碼）</label>
+      <input type="text" id="regUnit" placeholder="例：A棟 1001室" />
     </div>
     <div class="form-group">
-      <label>📱 聯絡電話</label>
-      <input type="tel" id="regPhone" placeholder="例：0910-001-001" />
+      <label>📱 家長聯絡電話</label>
+      <input type="tel" id="regPhone" placeholder="例：0912-345-678" />
     </div>
 
     <button class="reg-btn" onclick="startActivity()">
@@ -281,15 +282,17 @@
   <!-- 說明 -->
   <div class="howto">
     <h3>📖 活動說明</h3>
-    <div class="step"><div class="step-num">1</div><span>在社區各處找到 QR Code 立牌</span></div>
-    <div class="step"><div class="step-num">2</div><span>點上方「掃描 QR Code」按鈕開啟相機</span></div>
-    <div class="step"><div class="step-num">3</div><span>對準 QR Code 立牌，自動集章！</span></div>
-    <div class="step"><div class="step-num">4</div><span>集滿10個，點下方按鈕領取完成憑證</span></div>
-  </div>
+    <div class="step"><div class="step-num">1</div><span>從自家出發，在社區各處尋找 QR Code 立牌</span></div>
+    <div class="step"><div class="step-num">2</div><span>點上方「📷 掃描 QR Code」按鈕開啟相機，對準立牌自動集章</span></div>
+    <div class="step"><div class="step-num">3</div><span>集滿 10 個地點後，點下方按鈕領取完成憑證並截圖保存</span></div>
+    <div class="step"><div class="step-num">4</div><span>最後一站到 🌸 社區花園，憑截圖憑證兌換獎品及領取補給！</span></div>
+    <div style="margin-top:12px;padding:10px 14px;background:#FFF3F3;border-radius:12px;border-left:4px solid #FF6B35;font-size:12px;color:#CC4400;line-height:1.8;">
+      ☔ <b>雨天備案：</b>若遇大雨，戶外掃描點當日取消，兌換地點改至大廳，集章數不滿10個亦可兌獎。
+    </div></div>
 
   <!-- 完成按鈕 -->
   <button class="complete-btn" id="completeBtn" disabled onclick="generateVoucher()">
-    🎁 集滿了！領取完成憑證
+    🎁 領取兌獎憑證
   </button>
 
 </div><!-- /main-screen -->
@@ -326,11 +329,11 @@
       <div class="voucher-info-row"><span class="label">🏠 戶號</span><span class="value" id="v-unit">-</span></div>
       <div class="voucher-info-row"><span class="label">📱 電話</span><span class="value" id="v-phone">-</span></div>
       <div class="voucher-info-row"><span class="label">⏰ 完成時間</span><span class="value" id="v-time">-</span></div>
-      <div class="voucher-info-row"><span class="label">✅ 集章數量</span><span class="value">10 / 10 全數完成</span></div>
+      <div class="voucher-info-row"><span class="label">✅ 集章數量</span><span class="value" id="v-count">-</span></div>
     </div>
     <div class="voucher-stamp-row" id="v-stamps"></div>
     <div class="voucher-code" id="v-code">-</div>
-    <div class="voucher-note">※ 請截圖此畫面，至社區花園出示憑證換取禮物<br>※ 每戶限換乙份，工作人員將核對姓名、戶號與電話</div>
+    <div class="voucher-note">※ 請截圖此畫面，至活動服務台出示憑證換取禮物<br>※ 每戶限換乙份，工作人員將核對姓名與電話</div>
   </div>
   <div class="screenshot-hint">📸 請截圖此畫面保存</div>
 </div>
@@ -350,16 +353,16 @@
 <script>
 // ===== 地點設定 =====
 const LOCATIONS = [
-  {id:1,  name:'空中玻璃屋', emoji:'🔮'},
-  {id:2,  name:'空中花園',   emoji:'🌿'},
-  {id:3,  name:'兒童遊戲室', emoji:'🎠'},
-  {id:4,  name:'健身房',     emoji:'💪'},
-  {id:5,  name:'佈告欄',     emoji:'📋'},
-  {id:6,  name:'大廳AED',    emoji:'❤️‍🩹'},
-  {id:7,  name:'防災中心',   emoji:'🚨'},
-  {id:8,  name:'包裹室',     emoji:'📦'},
-  {id:9,  name:'富田福田',   emoji:'🌾'},
-  {id:10, name:'花園',       emoji:'🌸'},
+  {id:1,  name:'空中玻璃屋',          emoji:'🔮'},
+  {id:2,  name:'空中花園',            emoji:'🌿'},
+  {id:3,  name:'兒童遊戲室',          emoji:'🎠'},
+  {id:4,  name:'健身房',              emoji:'💪'},
+  {id:5,  name:'媽媽教室',            emoji:'👩'},
+  {id:6,  name:'大廳AED',             emoji:'❤️'},
+  {id:7,  name:'佈告欄',              emoji:'📋'},
+  {id:8,  name:'防災中心',            emoji:'🚨'},
+  {id:9,  name:'包裹室',              emoji:'📦'},
+  {id:10, name:'雨水撲滿(後門草皮)',   emoji:'🌧️'},
 ];
 
 // ===== localStorage helpers =====
@@ -374,9 +377,9 @@ function startActivity() {
   const name  = document.getElementById('regName').value.trim();
   const unit  = document.getElementById('regUnit').value.trim();
   const phone = document.getElementById('regPhone').value.trim();
-  if (!name)  { alert('請填寫家長姓名（或小朋友姓名）！'); document.getElementById('regName').focus(); return; }
-  if (!unit)  { alert('請填寫戶號（或門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
-  if (!phone) { alert('請填寫聯絡電話！'); document.getElementById('regPhone').focus(); return; }
+  if (!name)  { alert('請填寫小朋友的姓名！'); document.getElementById('regName').focus(); return; }
+  if (!unit)  { alert('請填寫戶號（門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
+  if (!phone) { alert('請填寫家長聯絡電話！'); document.getElementById('regPhone').focus(); return; }
   if (phone.replace(/\D/g,'').length < 8) { alert('請輸入正確的電話號碼（至少8碼）！'); return; }
 
   LS.set('sun_user', {name, unit, phone});
@@ -421,7 +424,7 @@ function renderStamps() {
   const bar = document.getElementById('bar');
   bar.style.width = (n/10*100) + '%';
   bar.className = 'bar-fill' + (n>0 ? ' has-progress' : '');
-  document.getElementById('completeBtn').disabled = n < 10;
+  document.getElementById('completeBtn').disabled = n < 1; // 至少集1個就可兌獎
 }
 
 // ===== 集章 =====
@@ -620,7 +623,11 @@ function generateVoucher() {
   document.getElementById('v-phone').textContent = user.phone;
   document.getElementById('v-time').textContent  = timeStr;
   document.getElementById('v-code').textContent  = code;
-  document.getElementById('v-stamps').innerHTML  = LOCATIONS.map(l=>`<span class="voucher-stamp">${l.emoji}</span>`).join('');
+  const collected = getCollected();
+  document.getElementById('v-count').textContent = collected.length + ' / 10';
+  document.getElementById('v-stamps').innerHTML = LOCATIONS.map(l=>
+    `<span class="voucher-stamp" style="opacity:${collected.includes(l.id)?'1':'0.2'}">${l.emoji}</span>`
+  ).join('');
   document.getElementById('voucher').classList.add('show');
 }
 
