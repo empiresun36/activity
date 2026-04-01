@@ -210,12 +210,12 @@
     <div class="reg-sub">請先填寫報名資料，<br>才能開始尋找社區秘密基地！</div>
 
     <div class="form-group">
-      <label>👶 小朋友姓名</label>
+      <label>👶 小朋友姓名（或家長姓名）</label>
       <input type="text" id="regName" placeholder="例：王小明" />
     </div>
     <div class="form-group">
-      <label>🏠 戶號（門牌號碼）</label>
-      <input type="text" id="regUnit" placeholder="例：A棟 1001室" />
+      <label>🏠 戶號（或門牌號碼）</label>
+      <input type="text" id="regUnit" placeholder="例：B5-37F" />
     </div>
     <div class="form-group">
       <label>📱 家長聯絡電話</label>
@@ -285,7 +285,7 @@
     <div class="step"><div class="step-num">1</div><span>從自家出發，在社區各處尋找 QR Code 立牌</span></div>
     <div class="step"><div class="step-num">2</div><span>點上方「📷 掃描 QR Code」按鈕開啟相機，對準立牌自動集章</span></div>
     <div class="step"><div class="step-num">3</div><span>集滿 10 個地點後，點下方按鈕領取完成憑證並截圖保存</span></div>
-    <div class="step"><div class="step-num">4</div><span>最後一站到 🌸 社區花園，憑截圖憑證兌換獎品及領取補給！</span></div>
+    <div class="step"><div class="step-num">4</div><span>最後一站到 🌸 花園，憑截圖憑證兌換獎品及領取補給！</span></div>
     <div style="margin-top:12px;padding:10px 14px;background:#FFF3F3;border-radius:12px;border-left:4px solid #FF6B35;font-size:12px;color:#CC4400;line-height:1.8;">
       ☔ <b>雨天備案：</b>若遇大雨，戶外掃描點當日取消，兌換地點改至大廳，集章數不滿10個亦可兌獎。
     </div></div>
@@ -333,7 +333,7 @@
     </div>
     <div class="voucher-stamp-row" id="v-stamps"></div>
     <div class="voucher-code" id="v-code">-</div>
-    <div class="voucher-note">※ 請截圖此畫面，至活動服務台出示憑證換取禮物<br>※ 每戶限換乙份，工作人員將核對姓名與電話</div>
+    <div class="voucher-note">※ 請截圖此畫面，至🌸 花園（遇大雨改大廳）出示憑證換取禮物<br>※ 每戶限換乙份，工作人員將核對姓名與電話</div>
   </div>
   <div class="screenshot-hint">📸 請截圖此畫面保存</div>
 </div>
@@ -377,8 +377,8 @@ function startActivity() {
   const name  = document.getElementById('regName').value.trim();
   const unit  = document.getElementById('regUnit').value.trim();
   const phone = document.getElementById('regPhone').value.trim();
-  if (!name)  { alert('請填寫小朋友的姓名！'); document.getElementById('regName').focus(); return; }
-  if (!unit)  { alert('請填寫戶號（門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
+  if (!name)  { alert('請填寫小朋友姓名（或家長姓名）！'); document.getElementById('regName').focus(); return; }
+  if (!unit)  { alert('請填寫戶號（或門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
   if (!phone) { alert('請填寫家長聯絡電話！'); document.getElementById('regPhone').focus(); return; }
   if (phone.replace(/\D/g,'').length < 8) { alert('請輸入正確的電話號碼（至少8碼）！'); return; }
 
