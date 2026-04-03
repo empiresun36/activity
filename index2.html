@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>太陽帝國社區兒童節｜認識我的家</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sun:#FFD93D; --orange:#FF6B35; --sky:#4ECDC4;
+    --pink:#FF6B9D; --green:#95E1D3; --bg:#FFF9F0; --dark:#2D3436;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);min-height:100vh;overflow-x:hidden;}
+
+  /* SKY */
+  .sky-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,#B8E4F9 0%,#FFF9F0 60%);z-index:-2;}
+  .cloud{position:fixed;border-radius:50px;background:white;opacity:.7;animation:floatCloud linear infinite;z-index:-1;}
+  .cloud::before,.cloud::after{content:'';position:absolute;background:white;border-radius:50%;}
+  .c1{width:120px;height:40px;top:8%;animation-duration:25s;} .c1::before{width:60px;height:60px;top:-30px;left:15px;} .c1::after{width:40px;height:40px;top:-20px;left:55px;}
+  .c2{width:80px;height:28px;top:18%;animation-duration:35s;animation-delay:-10s;} .c2::before{width:40px;height:40px;top:-20px;left:10px;} .c2::after{width:30px;height:30px;top:-15px;left:35px;}
+  .c3{width:150px;height:50px;top:5%;animation-duration:40s;animation-delay:-20s;} .c3::before{width:80px;height:80px;top:-40px;left:20px;} .c3::after{width:50px;height:50px;top:-25px;left:75px;}
+  @keyframes floatCloud{from{left:-200px}to{left:110%}}
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;overflow:hidden;}
+  .star{position:absolute;animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+
+  /* ===== 報名畫面 ===== */
+  .register-screen{
+    position:fixed;inset:0;z-index:900;
+    background:linear-gradient(160deg,#B8E4F9 0%,#FFF9F0 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:30px 24px;
+    transition:opacity .4s,transform .4s;
+  }
+  .register-screen.hidden{opacity:0;pointer-events:none;transform:scale(1.05);}
+  .register-card{
+    background:white;border-radius:32px;padding:32px 24px;
+    width:100%;max-width:400px;
+    box-shadow:0 16px 48px rgba(0,0,0,0.12);
+    text-align:center;
+  }
+  .reg-sun{font-size:64px;animation:spinSun 8s linear infinite;display:block;filter:drop-shadow(0 4px 12px rgba(255,200,0,.5));}
+  @keyframes spinSun{100%{transform:rotate(360deg)}}
+  .reg-title{font-family:'Nunito','Noto Sans TC',sans-serif;font-size:22px;font-weight:900;color:var(--orange);margin:10px 0 4px;line-height:1.3;}
+  .reg-sub{font-size:13px;color:#888;margin-bottom:24px;line-height:1.6;}
+  .form-group{margin-bottom:14px;text-align:left;}
+  .form-group label{font-size:13px;font-weight:700;color:var(--dark);display:block;margin-bottom:6px;}
+  .form-group input{
+    width:100%;padding:13px 16px;
+    border:2.5px solid #EEE;border-radius:14px;
+    font-size:16px;font-family:'Noto Sans TC',sans-serif;
+    outline:none;transition:border-color .2s,box-shadow .2s;
+  }
+  .form-group input:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(78,205,196,.15);}
+  .reg-btn{
+    width:100%;padding:16px;margin-top:4px;
+    background:linear-gradient(135deg,var(--sun),var(--orange));
+    color:white;font-size:17px;font-weight:900;
+    border:none;border-radius:16px;cursor:pointer;
+    font-family:'Noto Sans TC',sans-serif;
+    box-shadow:0 6px 20px rgba(255,107,53,.35);
+    transition:transform .15s,box-shadow .15s;
+  }
+  .reg-btn:active{transform:scale(.97);box-shadow:0 3px 10px rgba(255,107,53,.25);}
+  .reg-note{font-size:11px;color:#BBB;margin-top:12px;line-height:1.5;}
+
+  /* ===== 主畫面 ===== */
+  .main-screen{display:block;}
+
+  /* HEADER */
+  .header{text-align:center;padding:24px 20px 14px;}
+  .sun-icon{font-size:56px;display:block;animation:spinSun 8s linear infinite;filter:drop-shadow(0 4px 12px rgba(255,200,0,.5));}
+  .title{font-family:'Nunito','Noto Sans TC',sans-serif;font-size:22px;font-weight:900;color:var(--orange);text-shadow:3px 3px 0 rgba(255,107,53,.15);margin-top:6px;line-height:1.3;}
+  .subtitle{font-size:13px;color:#888;margin-top:4px;}
+
+  /* 用戶資訊條 */
+  .user-bar{
+    margin:0 20px 14px;padding:10px 16px;
+    background:white;border-radius:14px;
+    border:2px solid var(--sun);
+    display:flex;align-items:center;justify-content:space-between;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+  }
+  .user-info{font-size:13px;color:var(--dark);}
+  .user-info strong{color:var(--orange);font-weight:900;}
+  .restart-btn{font-size:11px;color:#BBB;background:none;border:none;cursor:pointer;font-family:'Noto Sans TC',sans-serif;text-decoration:underline;}
+
+  /* 掃描按鈕 */
+  .scan-btn-wrap{padding:0 20px;margin-bottom:14px;}
+  .scan-main-btn{
+    width:100%;padding:18px;
+    background:linear-gradient(135deg,#4ECDC4,#2EB8AE);
+    color:white;font-size:18px;font-weight:900;
+    border:none;border-radius:22px;cursor:pointer;
+    box-shadow:0 8px 24px rgba(78,205,196,.45);
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    font-family:'Noto Sans TC',sans-serif;
+    transition:transform .15s,box-shadow .15s;
+    position:relative;overflow:hidden;
+  }
+  .scan-main-btn::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.15) 0%,transparent 70%);}
+  .scan-main-btn:active{transform:scale(.97);box-shadow:0 4px 12px rgba(78,205,196,.3);}
+  .cam-icon{font-size:30px;}
+  .scan-btn-label{display:flex;flex-direction:column;align-items:flex-start;}
+  .scan-btn-label .big{font-size:17px;}
+  .scan-btn-label .small{font-size:11px;opacity:.85;font-weight:400;margin-top:1px;}
+
+  /* PROGRESS */
+  .progress-wrap{margin:0 20px 14px;background:white;border-radius:18px;padding:14px 18px;box-shadow:0 4px 20px rgba(0,0,0,.08);border:2px solid var(--sun);}
+  .progress-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .progress-label span{font-weight:700;color:var(--dark);font-size:13px;}
+  .progress-label .count{font-size:22px;font-weight:900;color:var(--orange);font-family:'Nunito',sans-serif;}
+  .bar-bg{background:#F0F0F0;border-radius:20px;height:18px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--sun),var(--orange));transition:width .6s cubic-bezier(.68,-.55,.27,1.55);position:relative;}
+  .bar-fill.has-progress::after{content:'⭐';position:absolute;right:-2px;top:-4px;font-size:22px;}
+
+  /* STAMP GRID */
+  .stamp-section{padding:0 20px;}
+  .stamp-section h3{font-size:12px;color:#888;margin-bottom:10px;text-align:center;letter-spacing:1px;}
+  .stamp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .stamp{aspect-ratio:1;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:24px;border:3px dashed #DDD;background:#F9F9F9;transition:all .3s ease;position:relative;overflow:hidden;}
+  .stamp.collected{border:3px solid var(--green);background:linear-gradient(135deg,#E8FFF9,#C8F5ED);animation:stampIn .4s cubic-bezier(.68,-.55,.27,1.55);box-shadow:0 4px 12px rgba(149,225,211,.4);}
+  @keyframes stampIn{0%{transform:scale(0) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+  .stamp.collected::after{content:'✓';position:absolute;top:2px;right:4px;font-size:11px;color:var(--sky);font-weight:900;}
+  .stamp-name{font-size:8px;color:#999;margin-top:2px;text-align:center;line-height:1.2;}
+  .stamp.collected .stamp-name{color:#2D9B85;font-weight:700;}
+
+  /* HOW TO */
+  .howto{margin:14px 20px;background:white;border-radius:18px;padding:14px 16px;box-shadow:0 4px 20px rgba(0,0,0,.06);}
+  .howto h3{font-size:14px;font-weight:900;color:var(--dark);margin-bottom:10px;}
+  .step{display:flex;align-items:center;gap:10px;font-size:13px;color:#555;margin-bottom:7px;}
+  .step-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;flex-shrink:0;}
+  .step:nth-child(1) .step-num{background:#FFE8D6;color:var(--orange);}
+  .step:nth-child(2) .step-num{background:#D6F5F2;color:var(--sky);}
+  .step:nth-child(3) .step-num{background:#FFE8F2;color:var(--pink);}
+  .step:nth-child(4) .step-num{background:#E8FFE8;color:#4CAF50;}
+  .step:nth-child(5) .step-num{background:#EDE8FF;color:#7C4DFF;}
+
+  /* COMPLETE BTN */
+  .complete-btn{display:block;width:calc(100% - 40px);margin:10px 20px 30px;padding:16px;background:linear-gradient(135deg,var(--sun),var(--orange));color:white;font-size:17px;font-weight:900;border:none;border-radius:20px;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,53,.35);transition:all .2s;font-family:'Noto Sans TC',sans-serif;}
+  .complete-btn:active{transform:translateY(2px);box-shadow:0 3px 10px rgba(255,107,53,.25);}
+  .complete-btn:disabled{background:linear-gradient(135deg,#DDD,#CCC);box-shadow:none;cursor:not-allowed;}
+
+  /* QR SCANNER OVERLAY */
+  .scanner-overlay{position:fixed;inset:0;z-index:500;background:#000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s;}
+  .scanner-overlay.show{opacity:1;pointer-events:all;}
+  .scanner-header{padding:18px 20px;display:flex;align-items:center;gap:12px;background:rgba(0,0,0,.8);}
+  .scanner-close{background:rgba(255,255,255,.15);border:none;color:white;width:40px;height:40px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .scanner-title{color:white;font-size:15px;font-weight:700;}
+  .scanner-title small{display:block;font-size:12px;opacity:.7;font-weight:400;margin-top:2px;}
+  .video-wrap{position:relative;flex:1;overflow:hidden;}
+  #qrVideo{width:100%;height:100%;object-fit:cover;}
+  .scan-frame{position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);width:220px;height:220px;}
+  .scan-frame::before,.scan-frame::after,.scan-frame .corner-br,.scan-frame .corner-bl{content:'';position:absolute;width:36px;height:36px;border-color:#4ECDC4;border-style:solid;}
+  .scan-frame::before{top:0;left:0;border-width:4px 0 0 4px;border-radius:4px 0 0 4px;}
+  .scan-frame::after{top:0;right:0;border-width:4px 4px 0 0;border-radius:0 4px 0 0;}
+  .scan-frame .corner-br{bottom:0;right:0;border-width:0 4px 4px 0;border-radius:0 0 4px 0;}
+  .scan-frame .corner-bl{bottom:0;left:0;border-width:0 0 4px 4px;border-radius:0 0 0 4px;}
+  .scan-line{position:absolute;left:10px;right:10px;height:3px;background:linear-gradient(90deg,transparent,#4ECDC4,transparent);top:10px;animation:scanMove 2s ease-in-out infinite;}
+  @keyframes scanMove{0%{top:10px}50%{top:200px}100%{top:10px}}
+  .scan-hint{position:absolute;bottom:30%;left:0;right:0;text-align:center;color:white;font-size:14px;text-shadow:0 2px 8px rgba(0,0,0,.8);}
+  .scanner-canvas{display:none;}
+  .scan-success-flash{position:absolute;inset:0;background:rgba(78,205,196,.7);display:flex;align-items:center;justify-content:center;font-size:80px;opacity:0;pointer-events:none;transition:opacity .2s;}
+  .scan-success-flash.show{opacity:1;}
+
+  /* VOUCHER */
+  .voucher-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#FFD93D 0%,#FF6B35 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:700;padding:30px 20px;opacity:0;pointer-events:none;transition:opacity .5s;}
+  .voucher-overlay.show{opacity:1;pointer-events:all;}
+  .voucher-card{background:white;border-radius:28px;padding:26px 22px;width:100%;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2);transform:scale(.8);transition:transform .5s .2s cubic-bezier(.68,-.55,.27,1.55);}
+  .voucher-overlay.show .voucher-card{transform:scale(1);}
+  .confetti-emoji{font-size:46px;animation:popIn .5s .5s both;}
+  @keyframes popIn{0%{transform:scale(0)}80%{transform:scale(1.2)}100%{transform:scale(1)}}
+  .voucher-title{font-size:22px;font-weight:900;color:var(--orange);margin:8px 0 4px;}
+  .voucher-sub{font-size:12px;color:#888;margin-bottom:16px;}
+  .voucher-info{background:#FFF9F0;border-radius:14px;padding:14px;text-align:left;margin-bottom:14px;border:2px solid var(--sun);}
+  .voucher-info-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:13px;}
+  .voucher-info-row .label{color:#888;}
+  .voucher-info-row .value{font-weight:700;color:var(--dark);}
+  .voucher-stamp-row{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin:10px 0;}
+  .voucher-stamp{font-size:20px;}
+  .voucher-code{font-family:'Nunito',monospace;font-size:16px;font-weight:900;color:var(--orange);letter-spacing:3px;background:#FFF9F0;padding:7px 16px;border-radius:10px;border:2px dashed var(--sun);margin:8px 0;}
+  .voucher-note{font-size:11px;color:#AAA;line-height:1.5;margin-top:6px;}
+  .screenshot-hint{color:white;font-size:13px;margin-top:16px;background:rgba(255,255,255,.25);padding:10px 20px;border-radius:12px;}
+
+  /* FEEDBACK */
+  .feedback-anim{position:fixed;inset:0;z-index:800;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .feedback-anim.show{opacity:1;pointer-events:all;}
+  .feedback-anim.success{background:rgba(78,205,196,.95);}
+  .feedback-anim.already{background:rgba(255,107,157,.95);}
+  .feedback-anim .fb-icon{font-size:80px;animation:bounceIn .4s cubic-bezier(.68,-.55,.27,1.55);}
+  .feedback-anim .fb-text{color:white;font-size:22px;font-weight:900;margin-top:14px;}
+  .feedback-anim .fb-sub{color:rgba(255,255,255,.85);font-size:14px;margin-top:6px;text-align:center;padding:0 30px;}
+  @keyframes bounceIn{0%{transform:scale(0)}70%{transform:scale(1.3)}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+
+<div class="sky-bg"></div>
+<div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+<div class="stars" id="stars"></div>
+
+<!-- ===========================
+     報名畫面（第一步）
+     =========================== -->
+<div class="register-screen" id="registerScreen">
+  <div class="register-card">
+    <span class="reg-sun">☀️</span>
+    <div class="reg-title">太陽帝國社區兒童節<br>「認識我的家」集章活動</div>
+    <div class="reg-sub">請先填寫報名資料，<br>才能開始尋找社區秘密基地！</div>
+
+    <div class="form-group">
+      <label>👶 小朋友姓名</label>
+      <input type="text" id="regName" placeholder="例：王小明" />
+    </div>
+    <div class="form-group">
+      <label>🏠 戶號（門牌號碼）</label>
+      <input type="text" id="regUnit" placeholder="例：A棟 1001室" />
+    </div>
+    <div class="form-group">
+      <label>📱 家長聯絡電話</label>
+      <input type="tel" id="regPhone" placeholder="例：0912-345-678" />
+    </div>
+
+    <button class="reg-btn" onclick="startActivity()">
+      🚀 開始集章冒險！
+    </button>
+    <div class="reg-note">
+      ※ 填寫資料僅供活動換禮使用<br>
+      ※ 每戶限換乙份禮物，工作人員將核對資料
+    </div>
+  </div>
+</div>
+
+<!-- ===========================
+     主活動畫面
+     =========================== -->
+<div class="main-screen" id="mainScreen" style="display:none;">
+
+  <div class="header">
+    <span class="sun-icon">☀️</span>
+    <div class="title">太陽帝國社區兒童節<br>「認識我的家」集章活動</div>
+    <div class="subtitle">找到全部10個地點，換取精美禮物！</div>
+  </div>
+
+  <!-- 用戶資訊條 -->
+  <div class="user-bar">
+    <div class="user-info">
+      👶 <strong id="showName">-</strong>&nbsp;&nbsp;🏠 <span id="showUnit">-</span>
+    </div>
+    <button class="restart-btn" onclick="resetActivity()">重新報名</button>
+  </div>
+
+  <!-- 掃描按鈕：用原生相機掃描 -->
+  <div class="scan-btn-wrap">
+    <label class="scan-main-btn" for="qrFileInput" style="display:flex;cursor:pointer;">
+      <span class="cam-icon">📷</span>
+      <span class="scan-btn-label">
+        <span class="big">掃描 QR Code 集章</span>
+        <span class="small">點我開啟相機，對準立牌掃描</span>
+      </span>
+    </label>
+    <input id="qrFileInput" type="file" accept="image/*" capture="environment"
+      style="display:none;" onchange="handleFileInput(this)" />
+  </div>
+
+  <!-- 進度 -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>🗺️ 集章進度</span>
+      <span class="count"><span id="count">0</span> / 10</span>
+    </div>
+    <div class="bar-bg">
+      <div class="bar-fill" id="bar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- 印章格 -->
+  <div class="stamp-section">
+    <h3>✨ 收集到的地點印章 ✨</h3>
+    <div class="stamp-grid" id="stampGrid"></div>
+  </div>
+
+  <!-- 說明 -->
+  <div class="howto">
+    <h3>📖 活動說明</h3>
+    <div class="step"><div class="step-num">1</div><span>從自家出發，在社區各處尋找 QR Code 立牌</span></div>
+    <div class="step"><div class="step-num">2</div><span>點上方「📷 掃描 QR Code」按鈕開啟相機，對準立牌自動集章</span></div>
+    <div class="step"><div class="step-num">3</div><span>集滿 10 個地點後，點下方按鈕領取完成憑證並截圖保存</span></div>
+    <div class="step"><div class="step-num">4</div><span>最後一站到 🌸 社區花園，憑截圖憑證兌換獎品及領取補給！</span></div>
+    <div style="margin-top:12px;padding:10px 14px;background:#FFF3F3;border-radius:12px;border-left:4px solid #FF6B35;font-size:12px;color:#CC4400;line-height:1.8;">
+      ☔ <b>雨天備案：</b>若遇大雨，戶外掃描點當日取消，兌換地點改至大廳，集章數不滿10個亦可兌獎。
+    </div></div>
+
+  <!-- 完成按鈕 -->
+  <button class="complete-btn" id="completeBtn" disabled onclick="generateVoucher()">
+    🎁 領取兌獎憑證
+  </button>
+
+</div><!-- /main-screen -->
+
+<!-- QR SCANNER -->
+<div class="scanner-overlay" id="scannerOverlay">
+  <div class="scanner-header">
+    <button class="scanner-close" onclick="closeScanner()">✕</button>
+    <div class="scanner-title">掃描 QR Code 集章
+      <small>對準社區立牌上的 QR Code</small>
+    </div>
+  </div>
+  <div class="video-wrap">
+    <video id="qrVideo" playsinline muted autoplay></video>
+    <canvas class="scanner-canvas" id="qrCanvas"></canvas>
+    <div class="scan-frame">
+      <div class="corner-br"></div><div class="corner-bl"></div>
+      <div class="scan-line"></div>
+    </div>
+    <div class="scan-hint">📱 靠近一點，QR Code 對準框內<br><small style="opacity:.7;font-size:12px">保持穩定，約1~2秒自動辨識</small></div>
+    <div class="scan-success-flash" id="scanFlash">⭐</div>
+    <div id="debugBar" style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.75);color:#0f0;font-size:12px;padding:8px 12px;font-family:monospace;line-height:1.6;z-index:10;">等待相機...</div>
+  </div>
+</div>
+
+<!-- VOUCHER -->
+<div class="voucher-overlay" id="voucher">
+  <div class="voucher-card">
+    <div class="confetti-emoji">🎉</div>
+    <div class="voucher-title">恭喜全部集滿！</div>
+    <div class="voucher-sub">太陽帝國社區兒童節 認識我的家</div>
+    <div class="voucher-info">
+      <div class="voucher-info-row"><span class="label">👶 姓名</span><span class="value" id="v-name">-</span></div>
+      <div class="voucher-info-row"><span class="label">🏠 戶號</span><span class="value" id="v-unit">-</span></div>
+      <div class="voucher-info-row"><span class="label">📱 電話</span><span class="value" id="v-phone">-</span></div>
+      <div class="voucher-info-row"><span class="label">⏰ 完成時間</span><span class="value" id="v-time">-</span></div>
+      <div class="voucher-info-row"><span class="label">✅ 集章數量</span><span class="value" id="v-count">-</span></div>
+    </div>
+    <div class="voucher-stamp-row" id="v-stamps"></div>
+    <div class="voucher-code" id="v-code">-</div>
+    <div class="voucher-note">※ 請截圖此畫面，至活動服務台出示憑證換取禮物<br>※ 每戶限換乙份，工作人員將核對姓名與電話</div>
+
+    <!-- 活動團隊按鈕 -->
+    <button onclick="toggleTeam()" style="margin-top:14px;width:100%;padding:10px;background:#F0F9FF;border:2px solid #4ECDC4;border-radius:12px;color:#2D9B85;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;">
+      👥 活動團隊
+    </button>
+
+    <!-- 活動團隊展開內容 -->
+    <div id="teamPanel" style="display:none;margin-top:10px;text-align:left;border-radius:14px;overflow:hidden;border:1.5px solid #EEE;">
+
+      <!-- 所有成員列表 -->
+      <div style="background:#F8F8F8;padding:10px 14px;">
+        <div style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">本次活動籌備團隊</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">
+          <span onclick="showProfile('liang')" style="padding:5px 10px;background:white;border:1.5px solid #4ECDC4;border-radius:20px;font-size:13px;color:#2D9B85;cursor:pointer;font-weight:700;">梁哲嘉</span>
+          <span onclick="showProfile('yu')" style="padding:5px 10px;background:white;border:1.5px solid #4ECDC4;border-radius:20px;font-size:13px;color:#2D9B85;cursor:pointer;font-weight:700;">余盈賢</span>
+          <span onclick="showProfile('fang')" style="padding:5px 10px;background:white;border:1.5px solid #4ECDC4;border-radius:20px;font-size:13px;color:#2D9B85;cursor:pointer;font-weight:700;">方冠凱</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">游一龍</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">范志賢</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">游進銘</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">方銘全</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">林育萍</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">丘源安</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">李小剛</span>
+        </div>
+        <div style="font-size:11px;color:#AAA;text-align:center;margin-top:8px;">點選綠色名字查看介紹</div>
+      </div>
+
+      <!-- 個人介紹卡片 -->
+      <div id="profileCard" style="display:none;padding:14px;background:white;border-top:1.5px solid #EEE;">
+        <div id="profileContent"></div>
+        <button onclick="closeProfile()" style="margin-top:10px;width:100%;padding:8px;background:#F0F0F0;border:none;border-radius:10px;color:#666;font-size:13px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;">✕ 關閉</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="screenshot-hint">📸 請截圖此畫面保存</div>
+</div>
+
+<!-- FEEDBACK -->
+<div class="feedback-anim success" id="fbSuccess">
+  <div class="fb-icon">⭐</div>
+  <div class="fb-text" id="fbSuccessText">集章成功！</div>
+  <div class="fb-sub" id="fbSuccessSub">太棒了，繼續找下一個！</div>
+</div>
+<div class="feedback-anim already" id="fbAlready">
+  <div class="fb-icon">😊</div>
+  <div class="fb-text">已經集過這個囉！</div>
+  <div class="fb-sub" id="fbAlreadySub">繼續找其他地點吧！</div>
+</div>
+
+<script>
+// ===== 地點設定 =====
+const LOCATIONS = [
+  {id:1,  name:'空中玻璃屋',          emoji:'🔮'},
+  {id:2,  name:'空中花園',            emoji:'🌿'},
+  {id:3,  name:'兒童遊戲室',          emoji:'🎠'},
+  {id:4,  name:'健身房',              emoji:'💪'},
+  {id:5,  name:'媽媽教室',            emoji:'👩'},
+  {id:6,  name:'大廳AED',             emoji:'❤️'},
+  {id:7,  name:'佈告欄',              emoji:'📋'},
+  {id:8,  name:'防災中心',            emoji:'🚨'},
+  {id:9,  name:'包裹室',              emoji:'📦'},
+  {id:10, name:'雨水撲滿(後門草皮)',   emoji:'🌧️'},
+];
+
+// ===== localStorage helpers =====
+const LS = {
+  get: k => { try{ return JSON.parse(localStorage.getItem(k)); }catch{ return null; } },
+  set: (k,v) => localStorage.setItem(k, JSON.stringify(v)),
+  del: k => localStorage.removeItem(k)
+};
+
+// ===== 報名 =====
+function startActivity() {
+  const name  = document.getElementById('regName').value.trim();
+  const unit  = document.getElementById('regUnit').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  if (!name)  { alert('請填寫小朋友的姓名！'); document.getElementById('regName').focus(); return; }
+  if (!unit)  { alert('請填寫戶號（門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
+  if (!phone) { alert('請填寫家長聯絡電話！'); document.getElementById('regPhone').focus(); return; }
+  if (phone.replace(/\D/g,'').length < 8) { alert('請輸入正確的電話號碼（至少8碼）！'); return; }
+
+  LS.set('sun_user', {name, unit, phone});
+
+  // 靜悄悄送到 Google 表單
+  submitToGoogleForm(name, unit, phone);
+
+  showMain();
+}
+
+function submitToGoogleForm(name, unit, phone) {
+  const FORM_ID = '1FAIpQLSfJ2Qg9UVDagpkH23gvsBZOSFozMHHKAGyQfTenhz7sSAiURg';
+  const url = 'https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse';
+  const body = new FormData();
+  body.append('entry.628971069',  name);   // 姓名
+  body.append('entry.2088059004', unit);   // 戶號
+  body.append('entry.1598228020', phone);  // 電話
+  // 用 no-cors 靜默送出，不等回應、不影響使用者
+  fetch(url, { method: 'POST', mode: 'no-cors', body })
+    .catch(() => {}); // 失敗也不提示，不影響活動
+}
+
+function showMain() {
+  const user = LS.get('sun_user');
+  if (!user) return;
+  document.getElementById('registerScreen').classList.add('hidden');
+  document.getElementById('mainScreen').style.display = 'block';
+  document.getElementById('showName').textContent = user.name;
+  document.getElementById('showUnit').textContent = user.unit;
+  renderStamps();
+  checkUrlParam();
+}
+
+function resetActivity() {
+  if (!confirm('確定要清除資料重新報名嗎？集章紀錄也會一併清除。')) return;
+  LS.del('sun_user');
+  LS.del('sun_empire_collected');
+  location.reload();
+}
+
+// ===== 集章資料 =====
+function getCollected() { return LS.get('sun_empire_collected') || []; }
+function saveCollected(arr) { LS.set('sun_empire_collected', arr); }
+
+// ===== 渲染 =====
+function renderStamps() {
+  const collected = getCollected();
+  const grid = document.getElementById('stampGrid');
+  grid.innerHTML = '';
+  LOCATIONS.forEach(loc => {
+    const d = document.createElement('div');
+    d.className = 'stamp' + (collected.includes(loc.id) ? ' collected' : '');
+    d.innerHTML = `<span>${loc.emoji}</span><span class="stamp-name">${loc.name}</span>`;
+    grid.appendChild(d);
+  });
+  const n = collected.length;
+  document.getElementById('count').textContent = n;
+  const bar = document.getElementById('bar');
+  bar.style.width = (n/10*100) + '%';
+  bar.className = 'bar-fill' + (n>0 ? ' has-progress' : '');
+  document.getElementById('completeBtn').disabled = n < 1; // 至少集1個就可兌獎
+}
+
+// ===== 集章 =====
+function collectStamp(locId) {
+  const collected = getCollected();
+  const loc = LOCATIONS.find(l => l.id === locId);
+  if (!loc) return;
+  if (collected.includes(locId)) {
+    document.getElementById('fbAlreadySub').textContent = `「${loc.name}」已經集過囉，繼續找其他地點！`;
+    showFeedback('fbAlready'); return;
+  }
+  collected.push(locId);
+  saveCollected(collected);
+  renderStamps();
+  document.getElementById('fbSuccessText').textContent = `「${loc.name}」集章成功！`;
+  document.getElementById('fbSuccessSub').textContent =
+    collected.length===10 ? '🎉 全部集滿！快去領取憑證！' : `還差 ${10-collected.length} 個，繼續加油！`;
+  showFeedback('fbSuccess');
+}
+
+function showFeedback(id) {
+  const el = document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+// ===== QR SCANNER (jsQR + file input) =====
+// 預先載入 jsQR
+(function loadJsQR(){
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
+  s.onerror = () => {
+    const s2 = document.createElement('script');
+    s2.src = 'https://unpkg.com/jsqr@1.4.0/dist/jsQR.js';
+    document.head.appendChild(s2);
+  };
+  document.head.appendChild(s);
+})();
+
+function handleFileInput(input) {
+  const file = input.files[0];
+  if (!file) return;
+  input.value = '';
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      if (typeof jsQR === 'undefined') {
+        alert('掃描器載入中，請稍後再試！');
+        return;
+      }
+
+      // 試多種縮放比例（高解析照片需要縮小才能辨識）
+      const scales = [0.5, 0.25, 1.0, 0.75, 0.125];
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      let found = false;
+
+      for (const scale of scales) {
+        const w = Math.round(img.width * scale);
+        const h = Math.round(img.height * scale);
+        canvas.width = w;
+        canvas.height = h;
+        ctx.drawImage(img, 0, 0, w, h);
+        const imageData = ctx.getImageData(0, 0, w, h);
+        const code = jsQR(imageData.data, w, h, { inversionAttempts: 'attemptBoth' });
+        if (code) {
+          found = true;
+          handleQRResult(code.data);
+          break;
+        }
+      }
+
+      if (!found) {
+        alert('無法辨識 QR Code\n\n請確認：\n1. QR Code 完整在畫面中\n2. 光線充足、不反光\n3. 對準後重新拍照');
+      }
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// 保留空的 openScanner/closeScanner 避免其他地方呼叫報錯
+function openScanner() {
+  document.getElementById('qrFileInput').click();
+}
+function closeScanner() {}
+
+function handleQRResult(data) {
+  document.getElementById('scanFlash').classList.add('show');
+  setTimeout(()=>document.getElementById('scanFlash').classList.remove('show'),400);
+  let locId=null;
+  // 亂碼對應表
+  const CODE_MAP = {
+    '1c6qj67el3e4': 1,
+    'ma6hczylhqpy': 2,
+    'ncyw40w85xoz': 3,
+    't2207ewvppjg': 4,
+    '1dcp06iqcnw2': 5,
+    'hutcj1aafbqj': 6,
+    'zt67wws9b6kw': 7,
+    '9x6bu7b6zq03': 8,
+    'tsev4offpcli': 9,
+    'psfnn1pmm2x6': 10,
+  };
+  try {
+    const url = new URL(data);
+    // 方式1：從 ?loc=N 參數抓（網頁內掃描跳轉用）
+    const p = new URLSearchParams(url.search);
+    if(p.get('loc')) locId = parseInt(p.get('loc'));
+    // 方式2：從亂碼路徑 /loc/亂碼.html 抓（QR Code直掃用）
+    if(!locId) {
+      const m = url.pathname.match(/\/loc\/([a-z0-9]+)\.html$/);
+      if(m && CODE_MAP[m[1]]) locId = CODE_MAP[m[1]];
+    }
+  } catch(e) {
+    // 方式3：純文字比對亂碼
+    for(const [code, id] of Object.entries(CODE_MAP)) {
+      if(data.includes(code)) { locId = id; break; }
+    }
+  }
+  setTimeout(()=>{
+    closeScanner();
+    if(locId&&locId>=1&&locId<=10) collectStamp(locId);
+    else alert('這個 QR Code 不是活動的集章碼！\n請掃描社區立牌上的 QR Code。');
+  },500);
+}
+
+// ===== 產生憑證（直接用報名資料） =====
+function generateVoucher() {
+  const user = LS.get('sun_user');
+  if(!user){ alert('找不到報名資料，請重新整理頁面。'); return; }
+  const now=new Date();
+  const timeStr=`${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} `+
+    `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const code='SUN-'+now.getFullYear().toString().slice(2)+
+    String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'-'+
+    user.phone.replace(/\D/g,'').slice(-4)+'-'+Math.floor(Math.random()*900+100);
+  document.getElementById('v-name').textContent  = user.name;
+  document.getElementById('v-unit').textContent  = user.unit;
+  document.getElementById('v-phone').textContent = user.phone;
+  document.getElementById('v-time').textContent  = timeStr;
+  document.getElementById('v-code').textContent  = code;
+  const collected = getCollected();
+  document.getElementById('v-count').textContent = collected.length + ' / 10';
+  document.getElementById('v-stamps').innerHTML = LOCATIONS.map(l=>
+    `<span class="voucher-stamp" style="opacity:${collected.includes(l.id)?'1':'0.2'}">${l.emoji}</span>`
+  ).join('');
+  document.getElementById('voucher').classList.add('show');
+}
+
+// ===== URL 參數（備用：QR Code 直連 ?loc=N） =====
+function checkUrlParam() {
+  const p=new URLSearchParams(window.location.search);
+  const loc=p.get('loc');
+  if(loc){ const id=parseInt(loc); if(id>=1&&id<=10){ setTimeout(()=>collectStamp(id),400); history.replaceState({},'',window.location.pathname); } }
+}
+
+// ===== 星星裝飾 =====
+function createStars() {
+  const c=document.getElementById('stars');
+  ['⭐','🌟','✨','💫'].forEach(e=>{
+    for(let i=0;i<3;i++){
+      const s=document.createElement('div'); s.className='star'; s.textContent=e;
+      s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
+      s.style.animationDelay=Math.random()*3+'s'; s.style.fontSize=(10+Math.random()*14)+'px';
+      c.appendChild(s);
+    }
+  });
+}
+
+// ===== 活動團隊 =====
+const PROFILES = {
+  liang: {
+    name: '梁哲嘉',
+    loc: 'C棟 337-2號 17樓',
+    slogan: '社區的守護者·行動的領航員',
+    tags: ['永和秀朗派出所義警', 'BNI菁商分會創會主席', '永和獅子會監事', '不動產專業副理'],
+    strengths: [
+      '以不動產專業監督公設維護與財務，讓家園保值',
+      '曾領導200人救災團隊，資源整合、冷靜應對',
+    ],
+    promises: [
+      ['家園守護', '優化安全SOP，盯門禁與電梯'],
+      ['社區活力', '舉辦節慶講座，找回鄰里溫度'],
+      ['透明溝通', '導入商業精神，高效治理'],
+    ],
+  },
+  yu: {
+    name: '余盈賢',
+    loc: 'C棟 337號 29樓',
+    slogan: '讓專業守護我們的家，用溫度連結鄰里情',
+    tags: ['企業講師、蓋洛普教練', '外商行銷主管', '台北中型社區4屆主委、3屆監委'],
+    strengths: [
+      '善化紛爭為社區共識，高效管理庶務',
+      '曾管3,000萬基金，成功爭取免費RC水塔',
+    ],
+    promises: [
+      ['行動橋樑', '溝通管委會與住戶'],
+      ['資產保值', '嚴格監督，省錢即保值'],
+      ['智慧共融', 'AI融入社區治理'],
+    ],
+  },
+  fang: {
+    name: '方冠凱',
+    loc: 'B棟 335-2號 26樓',
+    slogan: '在地傳承守護·精實紀律執行',
+    tags: ['在地成長32年', '職業軍人背景', '100+車輛管理', '帶領10人專業團隊'],
+    strengths: [
+      '日日巡視、精準紀錄，確保高品質標準',
+      '軍事級嚴謹執行消防設施巡察與門禁管理',
+    ],
+    promises: [
+      ['精準執行', '公設維護落實「日巡處錄」'],
+      ['安全守護', '防災門禁軍事級嚴謹'],
+      ['世代共融', '規劃創意鄰里活動'],
+    ],
+  },
+};
+
+function toggleTeam() {
+  const panel = document.getElementById('teamPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  if(panel.style.display === 'none') closeProfile();
+}
+
+function showProfile(key) {
+  const p = PROFILES[key];
+  if(!p) return;
+  const card = document.getElementById('profileCard');
+  const content = document.getElementById('profileContent');
+
+  const tagsHtml = p.tags.map(t =>
+    `<span style="display:inline-block;padding:2px 8px;background:#E8FFF9;border-radius:10px;font-size:11px;color:#2D9B85;margin:2px;">${t}</span>`
+  ).join('');
+
+  const strengthsHtml = p.strengths.map(s =>
+    `<li style="font-size:12px;color:#555;margin-bottom:4px;">● ${s}</li>`
+  ).join('');
+
+  const promisesHtml = p.promises.map(([title, desc]) =>
+    `<div style="margin-bottom:5px;font-size:12px;"><span style="font-weight:700;color:#FF6B35;">【${title}】</span><span style="color:#555;">${desc}</span></div>`
+  ).join('');
+
+  content.innerHTML = `
+    <div style="font-size:16px;font-weight:900;color:#2D3436;">${p.name}</div>
+    <div style="font-size:12px;color:#888;margin-bottom:6px;">📍 ${p.loc}</div>
+    <div style="font-size:12px;color:#4ECDC4;font-weight:700;margin-bottom:8px;">「${p.slogan}」</div>
+    <div style="margin-bottom:8px;">${tagsHtml}</div>
+    <div style="font-size:12px;font-weight:700;color:#2D3436;margin-bottom:4px;">核心優勢</div>
+    <ul style="margin:0 0 8px 0;padding:0;list-style:none;">${strengthsHtml}</ul>
+    <div style="font-size:12px;font-weight:700;color:#2D3436;margin-bottom:4px;">三大承諾</div>
+    ${promisesHtml}
+  `;
+  card.style.display = 'block';
+}
+
+function closeProfile() {
+  document.getElementById('profileCard').style.display = 'none';
+}
+
+// ===== INIT =====
+createStars();
+// 若已報名，直接進主畫面
+if(LS.get('sun_user')) {
+  showMain();
+} else {
+  document.getElementById('registerScreen').classList.remove('hidden');
+}
+</script>
+</body>
+</html>
