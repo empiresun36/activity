@@ -251,17 +251,15 @@
     <button class="restart-btn" onclick="resetActivity()">重新報名</button>
   </div>
 
-  <!-- 掃描按鈕：用原生相機掃描 -->
+  <!-- 掃描按鈕 -->
   <div class="scan-btn-wrap">
-    <label class="scan-main-btn" for="qrFileInput" style="display:flex;cursor:pointer;">
+    <button class="scan-main-btn" onclick="openScanner()">
       <span class="cam-icon">📷</span>
       <span class="scan-btn-label">
         <span class="big">掃描 QR Code 集章</span>
         <span class="small">點我開啟相機，對準立牌掃描</span>
       </span>
-    </label>
-    <input id="qrFileInput" type="file" accept="image/*" capture="environment"
-      style="display:none;" onchange="handleFileInput(this)" />
+    </button>
   </div>
 
   <!-- 進度 -->
@@ -503,68 +501,78 @@ function showFeedback(id) {
   setTimeout(() => el.classList.remove('show'), 2200);
 }
 
-// ===== QR SCANNER (jsQR + file input) =====
-// 預先載入 jsQR
-(function loadJsQR(){
+// ===== QR SCANNER =====
+// 預載 jsQR
+(function(){
   const s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
-  s.onerror = () => {
-    const s2 = document.createElement('script');
-    s2.src = 'https://unpkg.com/jsqr@1.4.0/dist/jsQR.js';
-    document.head.appendChild(s2);
-  };
   document.head.appendChild(s);
 })();
 
-function handleFileInput(input) {
-  const file = input.files[0];
-  if (!file) return;
-  input.value = '';
+let scanStream = null;
+let scanTimer  = null;
 
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const img = new Image();
-    img.onload = function() {
-      if (typeof jsQR === 'undefined') {
-        alert('掃描器載入中，請稍後再試！');
-        return;
-      }
+async function openScanner() {
+  const overlay = document.getElementById('scannerOverlay');
+  overlay.classList.add('show');
+  setDbg('正在開啟相機...');
 
-      // 試多種縮放比例（高解析照片需要縮小才能辨識）
-      const scales = [0.5, 0.25, 1.0, 0.75, 0.125];
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      let found = false;
-
-      for (const scale of scales) {
-        const w = Math.round(img.width * scale);
-        const h = Math.round(img.height * scale);
-        canvas.width = w;
-        canvas.height = h;
-        ctx.drawImage(img, 0, 0, w, h);
-        const imageData = ctx.getImageData(0, 0, w, h);
-        const code = jsQR(imageData.data, w, h, { inversionAttempts: 'attemptBoth' });
-        if (code) {
-          found = true;
-          handleQRResult(code.data);
-          break;
-        }
-      }
-
-      if (!found) {
-        alert('無法辨識 QR Code\n\n請確認：\n1. QR Code 完整在畫面中\n2. 光線充足、不反光\n3. 對準後重新拍照');
-      }
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
+  try {
+    // iPhone 必須用 facingMode: 'environment'，不能加 exact
+    scanStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment' }
+    });
+    const video = document.getElementById('qrVideo');
+    video.srcObject = scanStream;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('muted', '');
+    await video.play();
+    setDbg('相機開啟，請對準 QR Code');
+    scanTimer = setInterval(() => doScan(video), 350);
+  } catch(e) {
+    setDbg('❌ ' + e.message);
+    alert('無法開啟相機：' + e.message);
+    closeScanner();
+  }
 }
 
-// 保留空的 openScanner/closeScanner 避免其他地方呼叫報錯
-function openScanner() {
-  document.getElementById('qrFileInput').click();
+function doScan(video) {
+  if (!video.videoWidth) return;
+  const canvas = document.getElementById('qrCanvas');
+  // 縮到 400px 寬，iPhone 高解析度照片不需要全尺寸
+  const W = 400;
+  const H = Math.round(video.videoHeight * W / video.videoWidth);
+  canvas.width = W; canvas.height = H;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, W, H);
+  if (typeof jsQR === 'undefined') { setDbg('jsQR 載入中...'); return; }
+  const d = ctx.getImageData(0, 0, W, H);
+  // 同時試正常＋反色（應對黑底白色QR Code）
+  const code = jsQR(d.data, W, H, {inversionAttempts:'attemptBoth'});
+  if (code) {
+    setDbg('✅ 掃到！');
+    clearInterval(scanTimer); scanTimer = null;
+    const flash = document.getElementById('scanFlash');
+    flash.classList.add('show');
+    setTimeout(() => { flash.classList.remove('show'); closeScanner(); handleQRResult(code.data); }, 500);
+  } else {
+    setDbg('掃描中... ' + video.videoWidth + 'x' + video.videoHeight);
+  }
 }
-function closeScanner() {}
+
+function closeScanner() {
+  if (scanTimer) { clearInterval(scanTimer); scanTimer = null; }
+  if (scanStream) { scanStream.getTracks().forEach(t => t.stop()); scanStream = null; }
+  document.getElementById('scannerOverlay').classList.remove('show');
+}
+
+function setDbg(msg) {
+  const el = document.getElementById('debugBar');
+  if (el) el.textContent = msg;
+}
+
+// 空函式，避免殘留呼叫報錯
+function handleFileInput() {}
 
 function handleQRResult(data) {
   document.getElementById('scanFlash').classList.add('show');
