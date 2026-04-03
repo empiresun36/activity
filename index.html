@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>太陽帝國社區兒童節｜認識我的家</title>
+<title>太陽帝國社區兒童節｜認識我的家!!!</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -519,32 +519,40 @@ function showFeedback(id) {
 function handleFileInput(input) {
   const file = input.files[0];
   if (!file) return;
-  input.value = ''; // 重置讓同一張圖可重複選
+  input.value = '';
 
   const reader = new FileReader();
   reader.onload = function(e) {
     const img = new Image();
     img.onload = function() {
-      const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
       if (typeof jsQR === 'undefined') {
         alert('掃描器載入中，請稍後再試！');
         return;
       }
 
-      const code = jsQR(imageData.data, canvas.width, canvas.height, {
-        inversionAttempts: 'attemptBoth'
-      });
+      // 試多種縮放比例（高解析照片需要縮小才能辨識）
+      const scales = [0.5, 0.25, 1.0, 0.75, 0.125];
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      let found = false;
 
-      if (code) {
-        handleQRResult(code.data);
-      } else {
-        alert('無法辨識 QR Code，請確認：\n1. QR Code 在畫面中清晰可見\n2. 光線充足\n3. 重新拍照試試');
+      for (const scale of scales) {
+        const w = Math.round(img.width * scale);
+        const h = Math.round(img.height * scale);
+        canvas.width = w;
+        canvas.height = h;
+        ctx.drawImage(img, 0, 0, w, h);
+        const imageData = ctx.getImageData(0, 0, w, h);
+        const code = jsQR(imageData.data, w, h, { inversionAttempts: 'attemptBoth' });
+        if (code) {
+          found = true;
+          handleQRResult(code.data);
+          break;
+        }
+      }
+
+      if (!found) {
+        alert('無法辨識 QR Code\n\n請確認：\n1. QR Code 完整在畫面中\n2. 光線充足、不反光\n3. 對準後重新拍照');
       }
     };
     img.src = e.target.result;
@@ -733,7 +741,7 @@ function closeProfile() {
 
 // ===== INIT =====
 createStars();
-// 若已報名，直接進主畫面。
+// 若已報名，直接進主畫面
 if(LS.get('sun_user')) {
   showMain();
 } else {
