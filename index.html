@@ -2,782 +2,743 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>太陽帝國社區｜管委會委員競選團隊</title>
-<meta name="description" content="梁哲嘉・余盈賢・方冠凱・游子瑩・朱真瑩，五人攜手守護太陽帝國社區。4月11日請投下您的一票！">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>太陽帝國社區兒童節｜認識我的家</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --sun:#F4A824;--sun-deep:#C47D0A;--sun-pale:#FEF3DC;
-  --teal:#1A9E7A;--teal-dark:#0D6B52;--teal-pale:#E2F5EE;
-  --navy:#1B2A45;--bg:#FAFAF8;--card:#FFFFFF;
-  --border:rgba(0,0,0,0.07);--text:#1A1A1A;--sub:#5A5A5A;--muted:#909090;
-  --r:12px;--tab-h:60px;
-}
-html{scroll-behavior:smooth}
-body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased;padding-bottom:var(--tab-h)}
+  :root {
+    --sun:#FFD93D; --orange:#FF6B35; --sky:#4ECDC4;
+    --pink:#FF6B9D; --green:#95E1D3; --bg:#FFF9F0; --dark:#2D3436;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);min-height:100vh;overflow-x:hidden;}
 
-/* ── TOP NAV (desktop only) ── */
-.topnav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:52px}
-.topnav-brand{font-weight:900;font-size:14px;color:var(--navy)}
-.topnav-brand span{color:var(--sun)}
-.topnav-links{display:flex;gap:2px}
-.topnav-links button{font-size:13px;color:var(--sub);padding:5px 11px;border-radius:6px;border:none;background:none;cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:all .18s;white-space:nowrap}
-.topnav-links button:hover,.topnav-links button.active{background:var(--sun-pale);color:var(--sun-deep);font-weight:500}
-.tn-btn{transition:all .18s}
-.topnav-cta{background:var(--sun) !important;color:#fff !important;border-radius:20px !important;padding:6px 16px !important;font-weight:600 !important}
-.topnav-cta:hover{background:var(--sun-deep) !important}
+  /* SKY */
+  .sky-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,#B8E4F9 0%,#FFF9F0 60%);z-index:-2;}
+  .cloud{position:fixed;border-radius:50px;background:white;opacity:.7;animation:floatCloud linear infinite;z-index:-1;}
+  .cloud::before,.cloud::after{content:'';position:absolute;background:white;border-radius:50%;}
+  .c1{width:120px;height:40px;top:8%;animation-duration:25s;} .c1::before{width:60px;height:60px;top:-30px;left:15px;} .c1::after{width:40px;height:40px;top:-20px;left:55px;}
+  .c2{width:80px;height:28px;top:18%;animation-duration:35s;animation-delay:-10s;} .c2::before{width:40px;height:40px;top:-20px;left:10px;} .c2::after{width:30px;height:30px;top:-15px;left:35px;}
+  .c3{width:150px;height:50px;top:5%;animation-duration:40s;animation-delay:-20s;} .c3::before{width:80px;height:80px;top:-40px;left:20px;} .c3::after{width:50px;height:50px;top:-25px;left:75px;}
+  @keyframes floatCloud{from{left:-200px}to{left:110%}}
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;overflow:hidden;}
+  .star{position:absolute;animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
 
-/* ── BOTTOM TAB BAR (mobile) ── */
-.tabbar{display:none;position:fixed;bottom:0;left:0;right:0;width:100%;z-index:300;background:#fff;border-top:1px solid var(--border);height:var(--tab-h);box-sizing:border-box}
-.tabbar-inner{display:flex;width:100%;height:100%}
-.tab-btn{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:none;background:none;cursor:pointer;color:var(--muted);font-family:'Noto Sans TC',sans-serif;font-size:10px;font-weight:500;transition:color .15s;padding:0 2px}
-.tab-btn.active{color:var(--sun)}
-.tab-icon{font-size:22px;line-height:1}
-.tab-dot{width:4px;height:4px;border-radius:50%;background:var(--sun);margin-top:2px;opacity:0;transition:opacity .15s}
-.tab-btn.active .tab-dot{opacity:1}
+  /* ===== 報名畫面 ===== */
+  .register-screen{
+    position:fixed;inset:0;z-index:900;
+    background:linear-gradient(160deg,#B8E4F9 0%,#FFF9F0 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:30px 24px;
+    transition:opacity .4s,transform .4s;
+  }
+  .register-screen.hidden{opacity:0;pointer-events:none;transform:scale(1.05);}
+  .register-card{
+    background:white;border-radius:32px;padding:32px 24px;
+    width:100%;max-width:400px;
+    box-shadow:0 16px 48px rgba(0,0,0,0.12);
+    text-align:center;
+  }
+  .reg-sun{font-size:64px;animation:spinSun 8s linear infinite;display:block;filter:drop-shadow(0 4px 12px rgba(255,200,0,.5));}
+  @keyframes spinSun{100%{transform:rotate(360deg)}}
+  .reg-title{font-family:'Nunito','Noto Sans TC',sans-serif;font-size:22px;font-weight:900;color:var(--orange);margin:10px 0 4px;line-height:1.3;}
+  .reg-sub{font-size:13px;color:#888;margin-bottom:24px;line-height:1.6;}
+  .form-group{margin-bottom:14px;text-align:left;}
+  .form-group label{font-size:13px;font-weight:700;color:var(--dark);display:block;margin-bottom:6px;}
+  .form-group input{
+    width:100%;padding:13px 16px;
+    border:2.5px solid #EEE;border-radius:14px;
+    font-size:16px;font-family:'Noto Sans TC',sans-serif;
+    outline:none;transition:border-color .2s,box-shadow .2s;
+  }
+  .form-group input:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(78,205,196,.15);}
+  .reg-btn{
+    width:100%;padding:16px;margin-top:4px;
+    background:linear-gradient(135deg,var(--sun),var(--orange));
+    color:white;font-size:17px;font-weight:900;
+    border:none;border-radius:16px;cursor:pointer;
+    font-family:'Noto Sans TC',sans-serif;
+    box-shadow:0 6px 20px rgba(255,107,53,.35);
+    transition:transform .15s,box-shadow .15s;
+  }
+  .reg-btn:active{transform:scale(.97);box-shadow:0 3px 10px rgba(255,107,53,.25);}
+  .reg-note{font-size:11px;color:#BBB;margin-top:12px;line-height:1.5;}
 
-/* ── PANELS ── */
-.panel{display:none}
-.panel.active{display:block}
+  /* ===== 主畫面 ===== */
+  .main-screen{display:block;}
 
-/* ── HERO PANEL ── */
-.hero{background:var(--navy);min-height:calc(100vh - 52px - var(--tab-h));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem;position:relative;overflow:hidden}
-.hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,var(--sun) 0%,transparent 68%);opacity:.1;top:-120px;left:50%;transform:translateX(-50%)}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(244,168,36,.15);border:1px solid rgba(244,168,36,.3);color:var(--sun);font-size:11px;letter-spacing:2px;padding:5px 16px;border-radius:20px;margin-bottom:1.5rem;font-weight:600;text-transform:uppercase}
-.hero h1{font-size:clamp(1.8rem,7vw,4rem);font-weight:900;color:#fff;line-height:1.15;margin-bottom:1rem;letter-spacing:-1px}
-.hero h1 em{color:var(--sun);font-style:normal}
-.hero-desc{color:rgba(255,255,255,.65);font-size:clamp(13px,2vw,16px);max-width:500px;margin:0 auto 1.5rem;font-weight:300;line-height:1.85}
-.hero-leader{display:inline-flex;align-items:center;gap:12px;background:rgba(244,168,36,.12);border:1px solid rgba(244,168,36,.28);border-radius:14px;padding:.8rem 1.25rem;margin-bottom:1.5rem;text-align:left}
-.lbh{font-size:10px;color:var(--sun);letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:3px}
-.lnh{font-size:17px;font-weight:900;color:#fff;margin-bottom:1px}
-.lsh{font-size:11px;color:rgba(255,255,255,.48)}
-.cd-wrap{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:1rem 1.5rem;margin-bottom:1.75rem;display:inline-block}
-.cd-label{font-size:10px;color:rgba(255,255,255,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem}
-.cd-boxes{display:flex;gap:.75rem;justify-content:center;align-items:baseline}
-.cd-num{font-size:2rem;font-weight:900;color:var(--sun);line-height:1;display:block}
-.cd-unit{font-size:10px;color:rgba(255,255,255,.45);margin-top:2px}
-.cd-sep{font-size:1.5rem;color:rgba(255,255,255,.25);line-height:1;margin-bottom:3px}
-.cd-date{font-size:11px;color:rgba(255,255,255,.38);margin-top:.5rem}
-.hero-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.btn-sun{background:var(--sun);color:#fff;border:none;padding:12px 24px;border-radius:30px;font-size:14px;font-weight:700;cursor:pointer;transition:all .22s;text-decoration:none;display:inline-block;font-family:'Noto Sans TC',sans-serif}
-.btn-sun:hover{background:var(--sun-deep)}
-.btn-ghost{background:transparent;color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.3);padding:12px 24px;border-radius:30px;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block;font-family:'Noto Sans TC',sans-serif;transition:all .22s}
-.btn-ghost:hover{background:rgba(255,255,255,.1)}
+  /* HEADER */
+  .header{text-align:center;padding:24px 20px 14px;}
+  .sun-icon{font-size:56px;display:block;animation:spinSun 8s linear infinite;filter:drop-shadow(0 4px 12px rgba(255,200,0,.5));}
+  .title{font-family:'Nunito','Noto Sans TC',sans-serif;font-size:22px;font-weight:900;color:var(--orange);text-shadow:3px 3px 0 rgba(255,107,53,.15);margin-top:6px;line-height:1.3;}
+  .subtitle{font-size:13px;color:#888;margin-top:4px;}
 
-/* ── STATS BAR ── */
-.stats-bar{background:var(--sun);padding:1rem 1.5rem}
-.stats-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:.75rem}
-.stat-n{font-size:1.6rem;font-weight:900;color:#fff;line-height:1;text-align:center}
-.stat-l{font-size:11px;color:rgba(255,255,255,.8);margin-top:2px;text-align:center}
+  /* 用戶資訊條 */
+  .user-bar{
+    margin:0 20px 14px;padding:10px 16px;
+    background:white;border-radius:14px;
+    border:2px solid var(--sun);
+    display:flex;align-items:center;justify-content:space-between;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+  }
+  .user-info{font-size:13px;color:var(--dark);}
+  .user-info strong{color:var(--orange);font-weight:900;}
+  .restart-btn{font-size:11px;color:#BBB;background:none;border:none;cursor:pointer;font-family:'Noto Sans TC',sans-serif;text-decoration:underline;}
 
-/* ── SECTION COMMON ── */
-.wrap{max-width:980px;margin:0 auto;padding:2.5rem 1.25rem}
-.sec-tag{display:inline-block;background:var(--sun-pale);color:var(--sun-deep);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 11px;border-radius:20px;margin-bottom:.6rem}
-.sec-title{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:900;margin-bottom:.4rem;letter-spacing:-.5px}
-.sec-desc{color:var(--sub);font-size:14px;margin-bottom:2rem;max-width:560px;line-height:1.8}
+  /* 掃描按鈕 */
+  .scan-btn-wrap{padding:0 20px;margin-bottom:14px;}
+  .scan-main-btn{
+    width:100%;padding:18px;
+    background:linear-gradient(135deg,#4ECDC4,#2EB8AE);
+    color:white;font-size:18px;font-weight:900;
+    border:none;border-radius:22px;cursor:pointer;
+    box-shadow:0 8px 24px rgba(78,205,196,.45);
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    font-family:'Noto Sans TC',sans-serif;
+    transition:transform .15s,box-shadow .15s;
+    position:relative;overflow:hidden;
+  }
+  .scan-main-btn::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.15) 0%,transparent 70%);}
+  .scan-main-btn:active{transform:scale(.97);box-shadow:0 4px 12px rgba(78,205,196,.3);}
+  .cam-icon{font-size:30px;}
+  .scan-btn-label{display:flex;flex-direction:column;align-items:flex-start;}
+  .scan-btn-label .big{font-size:17px;}
+  .scan-btn-label .small{font-size:11px;opacity:.85;font-weight:400;margin-top:1px;}
 
-/* ── LEADER CARD ── */
-.leader-card{background:var(--card);border-radius:16px;border:2.5px solid var(--sun);overflow:hidden;margin-bottom:1.25rem;box-shadow:0 4px 24px rgba(244,168,36,.12)}
-.leader-bar{height:5px;background:linear-gradient(90deg,var(--sun),#f8c44a,var(--sun-deep))}
-.leader-body{padding:1.5rem}
-.leader-top{display:flex;gap:1.25rem;align-items:flex-start;flex-wrap:wrap;margin-bottom:1.25rem}
-.leader-avatar{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;flex-shrink:0;background:var(--sun-pale);color:var(--sun-deep);border:3px solid var(--sun)}
-.leader-badge-card{display:inline-flex;align-items:center;gap:4px;background:var(--sun);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;letter-spacing:1px;margin-bottom:5px}
-.leader-name-card{font-size:22px;font-weight:900;margin-bottom:1px}
-.leader-loc-card{font-size:12px;color:var(--muted);margin-bottom:.6rem}
-.leader-slogan{font-size:13px;font-weight:700;color:var(--sun-deep);border-left:4px solid var(--sun);padding-left:9px;margin-bottom:.6rem;line-height:1.6}
-.leader-motto{font-size:12px;color:var(--sub);background:var(--sun-pale);border-radius:8px;padding:.5rem .9rem;font-style:italic}
-.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
-.info-box{background:#F8F7F4;border-radius:10px;padding:.85rem}
-.info-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:0 0 5px}
-.ctags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
-.ctag{font-size:10px;padding:2px 8px;border-radius:20px;border:1px solid;font-weight:500}
-.highlight-box{background:#F8F7F4;border-radius:8px;padding:.6rem .85rem;font-size:12.5px;color:var(--sub);line-height:1.7;margin-bottom:8px}
-.cpromises{list-style:none;font-size:13px}
-.cpromises li{display:flex;gap:8px;margin-bottom:9px;line-height:1.65}
-.cpromises li::before{content:"✔";font-size:10px;flex-shrink:0;margin-top:4px;font-weight:700}
-.cquote{font-size:12px;color:var(--muted);border-top:1px solid var(--border);padding-top:.9rem;margin-top:.9rem;line-height:1.65;font-style:italic}
+  /* PROGRESS */
+  .progress-wrap{margin:0 20px 14px;background:white;border-radius:18px;padding:14px 18px;box-shadow:0 4px 20px rgba(0,0,0,.08);border:2px solid var(--sun);}
+  .progress-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .progress-label span{font-weight:700;color:var(--dark);font-size:13px;}
+  .progress-label .count{font-size:22px;font-weight:900;color:var(--orange);font-family:'Nunito',sans-serif;}
+  .bar-bg{background:#F0F0F0;border-radius:20px;height:18px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--sun),var(--orange));transition:width .6s cubic-bezier(.68,-.55,.27,1.55);position:relative;}
+  .bar-fill.has-progress::after{content:'⭐';position:absolute;right:-2px;top:-4px;font-size:22px;}
 
-/* ── CANDIDATE CARDS ── */
-.cands{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
-.ccard{background:var(--card);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;transition:transform .22s,box-shadow .22s}
-.ccard:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.08)}
-.ccard-bar{height:4px}
-.ccard-body{padding:1.1rem}
-.ccard-head{display:flex;align-items:center;gap:11px;margin-bottom:.85rem}
-.avatar{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;flex-shrink:0;overflow:hidden;position:relative}
-.avatar img{width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:50%;display:block}
-.avatar img.loading{display:none}
-.avatar-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900}
-.leader-avatar{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;flex-shrink:0;background:var(--sun-pale);color:var(--sun-deep);border:3px solid var(--sun);overflow:hidden;position:relative}
-.leader-avatar img{width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:50%;display:block}
-.leader-avatar .avatar-fallback{font-size:28px}
-.cname{font-size:16px;font-weight:700}
-.cloc{font-size:11px;color:var(--muted);margin-top:1px}
-.cslogan{font-size:11.5px;line-height:1.6;border-left:3px solid;padding-left:8px;margin-bottom:7px;font-weight:600}
-.cmotto{font-size:11px;color:var(--sub);background:#F8F7F4;border-radius:6px;padding:4px 8px;margin-bottom:8px;font-style:italic}
+  /* STAMP GRID */
+  .stamp-section{padding:0 20px;}
+  .stamp-section h3{font-size:12px;color:#888;margin-bottom:10px;text-align:center;letter-spacing:1px;}
+  .stamp-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .stamp{aspect-ratio:1;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:24px;border:3px dashed #DDD;background:#F9F9F9;transition:all .3s ease;position:relative;overflow:hidden;}
+  .stamp.collected{border:3px solid var(--green);background:linear-gradient(135deg,#E8FFF9,#C8F5ED);animation:stampIn .4s cubic-bezier(.68,-.55,.27,1.55);box-shadow:0 4px 12px rgba(149,225,211,.4);}
+  @keyframes stampIn{0%{transform:scale(0) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+  .stamp.collected::after{content:'✓';position:absolute;top:2px;right:4px;font-size:11px;color:var(--sky);font-weight:900;}
+  .stamp-name{font-size:8px;color:#999;margin-top:2px;text-align:center;line-height:1.2;}
+  .stamp.collected .stamp-name{color:#2D9B85;font-weight:700;}
 
-/* ── PROMISES DARK ── */
-.promises-bg{background:var(--navy);padding:2.5rem 1.25rem}
-.promises-inner{max-width:980px;margin:0 auto}
-.promises-inner .sec-tag{background:rgba(244,168,36,.15);color:var(--sun)}
-.promises-inner .sec-title{color:#fff}
-.promises-inner .sec-desc{color:rgba(255,255,255,.55)}
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.85rem}
-.pcard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:1.1rem;transition:all .2s}
-.pcard:hover{background:rgba(255,255,255,.09);border-color:rgba(244,168,36,.35)}
-.picon{font-size:26px;margin-bottom:.6rem;display:block}
-.ptitle{font-size:14px;font-weight:700;color:#fff;margin-bottom:.35rem}
-.pdesc{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.72}
+  /* HOW TO */
+  .howto{margin:14px 20px;background:white;border-radius:18px;padding:14px 16px;box-shadow:0 4px 20px rgba(0,0,0,.06);}
+  .howto h3{font-size:14px;font-weight:900;color:var(--dark);margin-bottom:10px;}
+  .step{display:flex;align-items:center;gap:10px;font-size:13px;color:#555;margin-bottom:7px;}
+  .step-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px;flex-shrink:0;}
+  .step:nth-child(1) .step-num{background:#FFE8D6;color:var(--orange);}
+  .step:nth-child(2) .step-num{background:#D6F5F2;color:var(--sky);}
+  .step:nth-child(3) .step-num{background:#FFE8F2;color:var(--pink);}
+  .step:nth-child(4) .step-num{background:#E8FFE8;color:#4CAF50;}
+  .step:nth-child(5) .step-num{background:#EDE8FF;color:#7C4DFF;}
 
-/* ── FORMS ── */
-.form-bg{background:var(--teal-pale);padding:2.5rem 1.25rem}
-.form-inner{max-width:780px;margin:0 auto}
-.form-card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 4px 30px rgba(13,107,82,.1)}
-.form-head{background:linear-gradient(135deg,var(--teal-dark),var(--teal));padding:1.25rem 1.5rem;color:#fff}
-.form-head h3{font-size:18px;font-weight:700;margin-bottom:3px}
-.form-head p{font-size:12px;opacity:.8}
-.ftabs{display:flex;border-bottom:1px solid var(--border);background:#fff;padding:0 1.25rem}
-.ftab{padding:11px 14px;font-size:13px;cursor:pointer;border:none;border-bottom:2.5px solid transparent;color:var(--muted);background:none;font-family:'Noto Sans TC',sans-serif;transition:all .2s;white-space:nowrap}
-.ftab.on{color:var(--teal);border-bottom-color:var(--teal);font-weight:500}
-.fpanel{display:none}.fpanel.on{display:block}
-.fpanel iframe{width:100%;border:none;display:block;min-height:680px}
+  /* COMPLETE BTN */
+  .complete-btn{display:block;width:calc(100% - 40px);margin:10px 20px 30px;padding:16px;background:linear-gradient(135deg,var(--sun),var(--orange));color:white;font-size:17px;font-weight:900;border:none;border-radius:20px;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,53,.35);transition:all .2s;font-family:'Noto Sans TC',sans-serif;}
+  .complete-btn:active{transform:translateY(2px);box-shadow:0 3px 10px rgba(255,107,53,.25);}
+  .complete-btn:disabled{background:linear-gradient(135deg,#DDD,#CCC);box-shadow:none;cursor:not-allowed;}
 
-/* ── POLL ── */
-.poll-card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06);max-width:700px}
-.poll-head{background:linear-gradient(135deg,var(--navy),#2D4165);padding:1.25rem 1.5rem;color:#fff}
-.poll-head h3{font-size:16px;font-weight:700;margin-bottom:2px}
-.poll-head p{font-size:12px;opacity:.65}
-.poll-body{padding:1.25rem}
-.poll-iframe-wrap iframe{width:100%;border:none;display:block;min-height:420px}
+  /* QR SCANNER OVERLAY */
+  .scanner-overlay{position:fixed;inset:0;z-index:500;background:#000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s;}
+  .scanner-overlay.show{opacity:1;pointer-events:all;}
+  .scanner-header{padding:18px 20px;display:flex;align-items:center;gap:12px;background:rgba(0,0,0,.8);}
+  .scanner-close{background:rgba(255,255,255,.15);border:none;color:white;width:40px;height:40px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .scanner-title{color:white;font-size:15px;font-weight:700;}
+  .scanner-title small{display:block;font-size:12px;opacity:.7;font-weight:400;margin-top:2px;}
+  .video-wrap{position:relative;flex:1;overflow:hidden;}
+  #qrVideo{width:100%;height:100%;object-fit:cover;}
+  .scan-frame{position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);width:220px;height:220px;}
+  .scan-frame::before,.scan-frame::after,.scan-frame .corner-br,.scan-frame .corner-bl{content:'';position:absolute;width:36px;height:36px;border-color:#4ECDC4;border-style:solid;}
+  .scan-frame::before{top:0;left:0;border-width:4px 0 0 4px;border-radius:4px 0 0 4px;}
+  .scan-frame::after{top:0;right:0;border-width:4px 4px 0 0;border-radius:0 4px 0 0;}
+  .scan-frame .corner-br{bottom:0;right:0;border-width:0 4px 4px 0;border-radius:0 0 4px 0;}
+  .scan-frame .corner-bl{bottom:0;left:0;border-width:0 0 4px 4px;border-radius:0 0 0 4px;}
+  .scan-line{position:absolute;left:10px;right:10px;height:3px;background:linear-gradient(90deg,transparent,#4ECDC4,transparent);top:10px;animation:scanMove 2s ease-in-out infinite;}
+  @keyframes scanMove{0%{top:10px}50%{top:200px}100%{top:10px}}
+  .scan-hint{position:absolute;bottom:30%;left:0;right:0;text-align:center;color:white;font-size:14px;text-shadow:0 2px 8px rgba(0,0,0,.8);}
+  .scanner-canvas{display:none;}
+  .scan-success-flash{position:absolute;inset:0;background:rgba(78,205,196,.7);display:flex;align-items:center;justify-content:center;font-size:80px;opacity:0;pointer-events:none;transition:opacity .2s;}
+  .scan-success-flash.show{opacity:1;}
 
-/* ── TIMELINE ── */
-.tl{position:relative;padding-left:26px}
-.tl::before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--sun),var(--teal))}
-.tl-item{position:relative;margin-bottom:2rem}
-.tl-dot{position:absolute;left:-21px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--teal);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--teal)}
-.tl-dot.vote{background:var(--sun);box-shadow:0 0 0 2px var(--sun)}
-.tl-date{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.5px}
-.tl-title{font-size:15px;font-weight:700;margin:2px 0 3px}
-.tl-title.vote{color:var(--sun)}
-.tl-detail{font-size:13px;color:var(--sub);line-height:1.7}
+  /* VOUCHER */
+  .voucher-overlay{position:fixed;inset:0;background:linear-gradient(135deg,#FFD93D 0%,#FF6B35 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:700;padding:30px 20px;opacity:0;pointer-events:none;transition:opacity .5s;}
+  .voucher-overlay.show{opacity:1;pointer-events:all;}
+  .voucher-card{background:white;border-radius:28px;padding:26px 22px;width:100%;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2);transform:scale(.8);transition:transform .5s .2s cubic-bezier(.68,-.55,.27,1.55);}
+  .voucher-overlay.show .voucher-card{transform:scale(1);}
+  .confetti-emoji{font-size:46px;animation:popIn .5s .5s both;}
+  @keyframes popIn{0%{transform:scale(0)}80%{transform:scale(1.2)}100%{transform:scale(1)}}
+  .voucher-title{font-size:22px;font-weight:900;color:var(--orange);margin:8px 0 4px;}
+  .voucher-sub{font-size:12px;color:#888;margin-bottom:16px;}
+  .voucher-info{background:#FFF9F0;border-radius:14px;padding:14px;text-align:left;margin-bottom:14px;border:2px solid var(--sun);}
+  .voucher-info-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:13px;}
+  .voucher-info-row .label{color:#888;}
+  .voucher-info-row .value{font-weight:700;color:var(--dark);}
+  .voucher-stamp-row{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin:10px 0;}
+  .voucher-stamp{font-size:20px;}
+  .voucher-code{font-family:'Nunito',monospace;font-size:16px;font-weight:900;color:var(--orange);letter-spacing:3px;background:#FFF9F0;padding:7px 16px;border-radius:10px;border:2px dashed var(--sun);margin:8px 0;}
+  .voucher-note{font-size:11px;color:#AAA;line-height:1.5;margin-top:6px;}
+  .screenshot-hint{color:white;font-size:13px;margin-top:16px;background:rgba(255,255,255,.25);padding:10px 20px;border-radius:12px;}
 
-footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:2.5rem 1.5rem;font-size:12px;line-height:2.2}
-footer strong{color:#fff}
-footer .sun{color:var(--sun)}
-
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-.reveal.in{opacity:1;transform:translateY(0)}
-
-@media(max-width:768px){
-  .topnav{display:none}
-  .tabbar{display:flex}
-  .info-grid{grid-template-columns:1fr}
-  .leader-top{flex-direction:column}
-  body{padding-bottom:var(--tab-h)}
-}
-@media(min-width:769px){
-  .panel{display:block !important}
-  .tabbar{display:none !important}
-  body{padding-bottom:0}
-}
+  /* FEEDBACK */
+  .feedback-anim{position:fixed;inset:0;z-index:800;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .feedback-anim.show{opacity:1;pointer-events:all;}
+  .feedback-anim.success{background:rgba(78,205,196,.95);}
+  .feedback-anim.already{background:rgba(255,107,157,.95);}
+  .feedback-anim .fb-icon{font-size:80px;animation:bounceIn .4s cubic-bezier(.68,-.55,.27,1.55);}
+  .feedback-anim .fb-text{color:white;font-size:22px;font-weight:900;margin-top:14px;}
+  .feedback-anim .fb-sub{color:rgba(255,255,255,.85);font-size:14px;margin-top:6px;text-align:center;padding:0 30px;}
+  @keyframes bounceIn{0%{transform:scale(0)}70%{transform:scale(1.3)}100%{transform:scale(1)}}
 </style>
 </head>
 <body>
 
-<!-- TOP NAV (desktop) -->
-<nav class="topnav">
-  <div class="topnav-brand">☀️ <span>太陽帝國</span> 競選團隊</div>
-  <div class="topnav-links">
-    <button onclick="showPanel('home')" id="tn-home" class="tn-btn active">首頁</button>
-    <button onclick="showPanel('guide')" id="tn-guide" class="tn-btn" style="font-weight:600;color:var(--sun-deep)">🗒 投票戶號</button>
-    <button onclick="showPanel('candidates')" id="tn-candidates" class="tn-btn">候選人</button>
-    <button onclick="showPanel('promises')" id="tn-promises" class="tn-btn">政見</button>
-    <button onclick="showPanel('survey')" id="tn-survey" class="tn-btn">問卷</button>
-    <button onclick="showPanel('events')" id="tn-events" class="tn-btn">活動</button>
-    <button class="topnav-cta" onclick="showPanel('guide')">支持我們</button>
-  </div>
-</nav>
+<div class="sky-bg"></div>
+<div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+<div class="stars" id="stars"></div>
 
-<!-- BOTTOM TAB BAR (mobile) -->
-<nav class="tabbar">
-  <div class="tabbar-inner">
-    <button class="tab-btn active" onclick="showTab('home',this)">
-      <span class="tab-icon">☀️</span><span>首頁</span><span class="tab-dot"></span>
+<!-- ===========================
+     報名畫面（第一步）
+     =========================== -->
+<div class="register-screen" id="registerScreen">
+  <div class="register-card">
+    <span class="reg-sun">☀️</span>
+    <div class="reg-title">太陽帝國社區兒童節<br>「認識我的家」集章活動</div>
+    <div class="reg-sub">請先填寫報名資料，<br>才能開始尋找社區秘密基地！</div>
+
+    <div class="form-group">
+      <label>👶 小朋友姓名</label>
+      <input type="text" id="regName" placeholder="例：王小明" />
+    </div>
+    <div class="form-group">
+      <label>🏠 戶號（門牌號碼）</label>
+      <input type="text" id="regUnit" placeholder="例：A棟 1001室" />
+    </div>
+    <div class="form-group">
+      <label>📱 家長聯絡電話</label>
+      <input type="tel" id="regPhone" placeholder="例：0912-345-678" />
+    </div>
+
+    <button class="reg-btn" onclick="startActivity()">
+      🚀 開始集章冒險！
     </button>
-    <button class="tab-btn" onclick="showTab('guide',this)">
-      <span class="tab-icon">🗒</span><span>戶號</span><span class="tab-dot"></span>
+    <div class="reg-note">
+      ※ 填寫資料僅供活動換禮使用<br>
+      ※ 每戶限換乙份禮物，工作人員將核對資料
+    </div>
+  </div>
+</div>
+
+<!-- ===========================
+     主活動畫面
+     =========================== -->
+<div class="main-screen" id="mainScreen" style="display:none;">
+
+  <div class="header">
+    <span class="sun-icon">☀️</span>
+    <div class="title">太陽帝國社區兒童節<br>「認識我的家」集章活動</div>
+    <div class="subtitle">找到全部10個地點，換取精美禮物！</div>
+  </div>
+
+  <!-- 用戶資訊條 -->
+  <div class="user-bar">
+    <div class="user-info">
+      👶 <strong id="showName">-</strong>&nbsp;&nbsp;🏠 <span id="showUnit">-</span>
+    </div>
+    <button class="restart-btn" onclick="resetActivity()">重新報名</button>
+  </div>
+
+  <!-- 掃描按鈕：用原生相機掃描 -->
+  <div class="scan-btn-wrap">
+    <label class="scan-main-btn" for="qrFileInput" style="display:flex;cursor:pointer;">
+      <span class="cam-icon">📷</span>
+      <span class="scan-btn-label">
+        <span class="big">掃描 QR Code 集章</span>
+        <span class="small">點我開啟相機，對準立牌掃描</span>
+      </span>
+    </label>
+    <input id="qrFileInput" type="file" accept="image/*" capture="environment"
+      style="display:none;" onchange="handleFileInput(this)" />
+  </div>
+
+  <!-- 進度 -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>🗺️ 集章進度</span>
+      <span class="count"><span id="count">0</span> / 10</span>
+    </div>
+    <div class="bar-bg">
+      <div class="bar-fill" id="bar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- 印章格 -->
+  <div class="stamp-section">
+    <h3>✨ 收集到的地點印章 ✨</h3>
+    <div class="stamp-grid" id="stampGrid"></div>
+  </div>
+
+  <!-- 說明 -->
+  <div class="howto">
+    <h3>📖 活動說明</h3>
+    <div class="step"><div class="step-num">1</div><span>從自家出發，在社區各處尋找 QR Code 立牌</span></div>
+    <div class="step"><div class="step-num">2</div><span>點上方「📷 掃描 QR Code」按鈕開啟相機，對準立牌自動集章</span></div>
+    <div class="step"><div class="step-num">3</div><span>集滿 10 個地點後，點下方按鈕領取完成憑證並截圖保存</span></div>
+    <div class="step"><div class="step-num">4</div><span>最後一站到 🌸 社區花園，憑截圖憑證兌換獎品及領取補給！</span></div>
+    <div style="margin-top:12px;padding:10px 14px;background:#FFF3F3;border-radius:12px;border-left:4px solid #FF6B35;font-size:12px;color:#CC4400;line-height:1.8;">
+      ☔ <b>雨天備案：</b>若遇大雨，戶外掃描點當日取消，兌換地點改至大廳，集章數不滿10個亦可兌獎。
+    </div></div>
+
+  <!-- 完成按鈕 -->
+  <button class="complete-btn" id="completeBtn" disabled onclick="generateVoucher()">
+    🎁 領取兌獎憑證
+  </button>
+
+</div><!-- /main-screen -->
+
+<!-- QR SCANNER -->
+<div class="scanner-overlay" id="scannerOverlay">
+  <div class="scanner-header">
+    <button class="scanner-close" onclick="closeScanner()">✕</button>
+    <div class="scanner-title">掃描 QR Code 集章
+      <small>對準社區立牌上的 QR Code</small>
+    </div>
+  </div>
+  <div class="video-wrap">
+    <video id="qrVideo" playsinline muted autoplay></video>
+    <canvas class="scanner-canvas" id="qrCanvas"></canvas>
+    <div class="scan-frame">
+      <div class="corner-br"></div><div class="corner-bl"></div>
+      <div class="scan-line"></div>
+    </div>
+    <div class="scan-hint">📱 靠近一點，QR Code 對準框內<br><small style="opacity:.7;font-size:12px">保持穩定，約1~2秒自動辨識</small></div>
+    <div class="scan-success-flash" id="scanFlash">⭐</div>
+    <div id="debugBar" style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.75);color:#0f0;font-size:12px;padding:8px 12px;font-family:monospace;line-height:1.6;z-index:10;">等待相機...</div>
+  </div>
+</div>
+
+<!-- VOUCHER -->
+<div class="voucher-overlay" id="voucher">
+  <div class="voucher-card">
+    <div class="confetti-emoji">🎉</div>
+    <div class="voucher-title">恭喜全部集滿！</div>
+    <div class="voucher-sub">太陽帝國社區兒童節 認識我的家</div>
+    <div class="voucher-info">
+      <div class="voucher-info-row"><span class="label">👶 姓名</span><span class="value" id="v-name">-</span></div>
+      <div class="voucher-info-row"><span class="label">🏠 戶號</span><span class="value" id="v-unit">-</span></div>
+      <div class="voucher-info-row"><span class="label">📱 電話</span><span class="value" id="v-phone">-</span></div>
+      <div class="voucher-info-row"><span class="label">⏰ 完成時間</span><span class="value" id="v-time">-</span></div>
+      <div class="voucher-info-row"><span class="label">✅ 集章數量</span><span class="value" id="v-count">-</span></div>
+    </div>
+    <div class="voucher-stamp-row" id="v-stamps"></div>
+    <div class="voucher-code" id="v-code">-</div>
+    <div class="voucher-note">※ 請截圖此畫面，至活動服務台出示憑證換取禮物<br>※ 每戶限換乙份，工作人員將核對姓名與電話</div>
+
+    <!-- 活動團隊按鈕 -->
+    <button onclick="toggleTeam()" style="margin-top:14px;width:100%;padding:10px;background:#F0F9FF;border:2px solid #4ECDC4;border-radius:12px;color:#2D9B85;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;">
+      👥 活動團隊
     </button>
-    <button class="tab-btn" onclick="showTab('candidates',this)">
-      <span class="tab-icon">👥</span><span>候選人</span><span class="tab-dot"></span>
-    </button>
-    <button class="tab-btn" onclick="showTab('promises',this)">
-      <span class="tab-icon">📋</span><span>政見</span><span class="tab-dot"></span>
-    </button>
-    <button class="tab-btn" onclick="showTab('survey',this)">
-      <span class="tab-icon">📝</span><span>問卷</span><span class="tab-dot"></span>
-    </button>
-    <button class="tab-btn" onclick="showTab('events',this)">
-      <span class="tab-icon">📅</span><span>活動</span><span class="tab-dot"></span>
-    </button>
-  </div>
-</nav>
 
-<!-- ════════════════════════════════
-     PANEL: 投票戶號對應表
-════════════════════════════════ -->
-<div class="panel" id="p-guide">
-<section id="s-guide">
-<div class="wrap" style="max-width:540px">
-  <span class="sec-tag">投票指引</span>
-  <h2 class="sec-title">投票戶號對應表</h2>
-  <p class="sec-desc">投票時請按戶號圈選，支持我們的專業競選團隊！</p>
+    <!-- 活動團隊展開內容 -->
+    <div id="teamPanel" style="display:none;margin-top:10px;text-align:left;border-radius:14px;overflow:hidden;border:1.5px solid #EEE;">
 
-  <div style="background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,.07)">
+      <!-- 所有成員列表 -->
+      <div style="background:#F8F8F8;padding:10px 14px;">
+        <div style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">本次活動籌備團隊</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">
+          <span onclick="showProfile('liang')" style="padding:5px 10px;background:white;border:1.5px solid #4ECDC4;border-radius:20px;font-size:13px;color:#2D9B85;cursor:pointer;font-weight:700;">梁哲嘉</span>
+          <span onclick="showProfile('yu')" style="padding:5px 10px;background:white;border:1.5px solid #4ECDC4;border-radius:20px;font-size:13px;color:#2D9B85;cursor:pointer;font-weight:700;">余盈賢</span>
+          <span onclick="showProfile('fang')" style="padding:5px 10px;background:white;border:1.5px solid #4ECDC4;border-radius:20px;font-size:13px;color:#2D9B85;cursor:pointer;font-weight:700;">方冠凱</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">游一龍</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">范志賢</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">游進銘</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">方銘全</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">林育萍</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">丘源安</span>
+          <span style="padding:5px 10px;background:#F0F0F0;border-radius:20px;font-size:13px;color:#888;">李小剛</span>
+        </div>
+        <div style="font-size:11px;color:#AAA;text-align:center;margin-top:8px;">點選綠色名字查看介紹</div>
+      </div>
 
-    <!-- 標題列 -->
-    <div style="background:var(--navy);padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center">
-      <span style="color:var(--sun);font-weight:900;font-size:15px;letter-spacing:.5px">☀ 專業競選團隊</span>
-      <span style="color:rgba(255,255,255,.5);font-size:11px">4/11（六）投票</span>
-    </div>
-
-    <!-- C棟 -->
-    <div style="padding:.75rem 1.5rem .25rem;background:var(--sun-pale)">
-      <span style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--sun-deep);text-transform:uppercase">C 棟</span>
-    </div>
-    <div style="padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:42px;height:42px;border-radius:50%;background:var(--sun-pale);border:2px solid var(--sun);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:var(--sun-deep);overflow:hidden;flex-shrink:0">
-          <img src="photos/liang.jpg" alt="梁" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.style.display='none';this.parentNode.innerHTML='梁'">
-        </div>
-        <div>
-          <div style="font-size:16px;font-weight:700;color:var(--text)">梁哲嘉</div>
-          <div style="font-size:11px;color:var(--muted)">委員候選人</div>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <div style="background:var(--navy);color:var(--sun);font-size:14px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:.5px">337-2號 17樓</div>
-      </div>
-    </div>
-    <div style="padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:42px;height:42px;border-radius:50%;background:#E6F1FB;border:2px solid #185FA5;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#0C447C;overflow:hidden;flex-shrink:0">
-          <img src="photos/yu.jpg" alt="余" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.style.display='none';this.parentNode.innerHTML='余'">
-        </div>
-        <div>
-          <div style="font-size:16px;font-weight:700;color:var(--text)">余盈賢</div>
-          <div style="font-size:11px;color:var(--muted)">委員候選人</div>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <div style="background:#E6F1FB;color:#0C447C;font-size:14px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:.5px">337號 29樓</div>
-      </div>
-    </div>
-
-    <!-- B棟 -->
-    <div style="padding:.75rem 1.5rem .25rem;background:#FFF8EC">
-      <span style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:#854F0B;text-transform:uppercase">B 棟</span>
-    </div>
-    <div style="padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:42px;height:42px;border-radius:50%;background:#FAEEDA;border:2px solid #EF9F27;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#633806;overflow:hidden;flex-shrink:0">
-          <img src="photos/fang.jpg" alt="方" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.style.display='none';this.parentNode.innerHTML='方'">
-        </div>
-        <div>
-          <div style="font-size:16px;font-weight:700;color:var(--text)">方冠凱 <span style="font-size:12px;color:var(--muted);font-weight:400">（方銘全）</span></div>
-          <div style="font-size:11px;color:var(--muted)">委員候選人</div>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <div style="background:#FAEEDA;color:#633806;font-size:14px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:.5px">335-2號 26樓</div>
-      </div>
-    </div>
-
-    <!-- A棟 -->
-    <div style="padding:.75rem 1.5rem .25rem;background:#FDF0F5">
-      <span style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:#72243E;text-transform:uppercase">A 棟</span>
-    </div>
-    <div style="padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:42px;height:42px;border-radius:50%;background:#FBEAF0;border:2px solid #D4537E;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#72243E;overflow:hidden;flex-shrink:0">
-          <img src="photos/you.jpg" alt="游" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.style.display='none';this.parentNode.innerHTML='游'">
-        </div>
-        <div>
-          <div style="font-size:16px;font-weight:700;color:var(--text)">游子瑩 <span style="font-size:12px;color:var(--muted);font-weight:400">（游進銘）</span></div>
-          <div style="font-size:11px;color:var(--muted)">委員候選人</div>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <div style="background:#FBEAF0;color:#72243E;font-size:14px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:.5px">331-1號 4樓</div>
-      </div>
-    </div>
-
-    <!-- 店面 -->
-    <div style="padding:.75rem 1.5rem .25rem;background:#EEEDFE">
-      <span style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:#3C3489;text-transform:uppercase">店 面</span>
-    </div>
-    <div style="padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between">
-      <div style="display:flex;align-items:center;gap:12px">
-        <div style="width:42px;height:42px;border-radius:50%;background:#EEEDFE;border:2px solid #534AB7;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;color:#3C3489;overflow:hidden;flex-shrink:0">
-          <img src="photos/zhu.jpg" alt="朱" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.style.display='none';this.parentNode.innerHTML='朱'">
-        </div>
-        <div>
-          <div style="font-size:16px;font-weight:700;color:var(--text)">朱真瑩 <span style="font-size:12px;color:var(--muted);font-weight:400">（天河手藝）</span></div>
-          <div style="font-size:11px;color:var(--muted)">委員候選人</div>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <div style="background:#EEEDFE;color:#3C3489;font-size:14px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:.5px">A1-1F</div>
+      <!-- 個人介紹卡片 -->
+      <div id="profileCard" style="display:none;padding:14px;background:white;border-top:1.5px solid #EEE;">
+        <div id="profileContent"></div>
+        <button onclick="closeProfile()" style="margin-top:10px;width:100%;padding:8px;background:#F0F0F0;border:none;border-radius:10px;color:#666;font-size:13px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;">✕ 關閉</button>
       </div>
     </div>
 
   </div>
-
-  <!-- 提醒 -->
-  <div style="margin-top:1.25rem;background:rgba(244,168,36,.1);border:1.5px solid var(--sun);border-radius:12px;padding:1rem 1.25rem">
-    <div style="font-size:13px;font-weight:700;color:var(--sun-deep);margin-bottom:.4rem">📌 投票小提醒</div>
-    <div style="font-size:13px;color:var(--sub);line-height:1.8">
-      投票日：<strong>4 月 11 日（六）</strong><br>
-      記得攜帶相關證件準時出席<br>
-      找到以上戶號，圈選支持我們！
-    </div>
-  </div>
-
-</div>
-</section>
+  <div class="screenshot-hint">📸 請截圖此畫面保存</div>
 </div>
 
-<!-- ════════════════════════════════
-     PANEL: 首頁
-════════════════════════════════ -->
-<div class="panel active" id="p-home">
-<section id="s-home">
-  <div class="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-eyebrow">☀ 太陽帝國社區 · 2026 管委會改選</div>
-    <h1>讓<em>專業</em>與<em>行動</em><br>守護我們的家</h1>
-    <p class="hero-desc" style="margin-bottom:.75rem;font-size:clamp(13px,2vw,15px)">五人攜手，打造更安全、透明、有溫度的太陽帝國</p>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:2rem">
-      <span style="color:#fff;font-size:clamp(16px,3.5vw,22px);font-weight:900;letter-spacing:.5px">梁哲嘉</span>
-      <span style="color:rgba(255,255,255,.3);font-size:20px;font-weight:300">·</span>
-      <span style="color:#fff;font-size:clamp(16px,3.5vw,22px);font-weight:900;letter-spacing:.5px">余盈賢</span>
-      <span style="color:rgba(255,255,255,.3);font-size:20px;font-weight:300">·</span>
-      <span style="color:#fff;font-size:clamp(16px,3.5vw,22px);font-weight:900;letter-spacing:.5px">方冠凱</span>
-      <span style="color:rgba(255,255,255,.3);font-size:20px;font-weight:300">·</span>
-      <span style="color:#fff;font-size:clamp(16px,3.5vw,22px);font-weight:900;letter-spacing:.5px">游子瑩</span>
-      <span style="color:rgba(255,255,255,.3);font-size:20px;font-weight:300">·</span>
-      <span style="color:#fff;font-size:clamp(16px,3.5vw,22px);font-weight:900;letter-spacing:.5px">朱真瑩</span>
-    </div>
-    <div class="hero-leader">
-      <div style="width:44px;height:44px;border-radius:50%;background:rgba(244,168,36,.2);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--sun);flex-shrink:0;border:2px solid rgba(244,168,36,.4)">梁</div>
-      <div>
-        <div class="lbh">⭐ 委員候選人</div>
-        <div class="lnh">梁哲嘉</div>
-        <div class="lsh">C棟 337-2號17樓 · 社區的守護者・行動的領航員</div>
-      </div>
-    </div>
-    <div class="cd-wrap">
-      <div class="cd-label">🗳 區權會投票倒數</div>
-      <div class="cd-boxes">
-        <div><span class="cd-num" id="cd-d">--</span><div class="cd-unit">天</div></div>
-        <div class="cd-sep">:</div>
-        <div><span class="cd-num" id="cd-h">--</span><div class="cd-unit">時</div></div>
-        <div class="cd-sep">:</div>
-        <div><span class="cd-num" id="cd-m">--</span><div class="cd-unit">分</div></div>
-        <div class="cd-sep">:</div>
-        <div><span class="cd-num" id="cd-s">--</span><div class="cd-unit">秒</div></div>
-      </div>
-      <div class="cd-date">4 月 11 日（六）正式投票</div>
-    </div>
-    <div class="hero-btns">
-      <button class="btn-sun" onclick="showTab('guide',document.querySelector('.tab-btn:nth-child(2)'))">支持我們</button>
-      <button class="btn-ghost" onclick="showTab('candidates',document.querySelector('.tab-btn:nth-child(3)'))">認識候選人</button>
-    </div>
-  </div>
-
-  <div class="stats-bar">
-    <div class="stats-inner">
-      <div><div class="stat-n" id="s-support">0</div><div class="stat-l">連署支持</div></div>
-      <div><div class="stat-n" id="s-survey">0</div><div class="stat-l">問卷填寫</div></div>
-      <div><div class="stat-n">5</div><div class="stat-l">位候選人</div></div>
-      <div><div class="stat-n" style="font-size:1.2rem">4/11</div><div class="stat-l">正式投票日</div></div>
-    </div>
-  </div>
-
-  <!-- 快速導覽卡 -->
-  <div class="wrap">
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.85rem">
-      <div onclick="showTab('candidates',document.querySelector('.tab-btn:nth-child(3)'))" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;text-align:center;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#F4A824'" onmouseout="this.style.borderColor='rgba(0,0,0,0.07)'">
-        <div style="font-size:28px;margin-bottom:.4rem">👥</div>
-        <div style="font-size:14px;font-weight:700">候選人</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px">五位守護者</div>
-      </div>
-      <div onclick="showTab('promises',document.querySelector('.tab-btn:nth-child(4)'))" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;text-align:center;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#F4A824'" onmouseout="this.style.borderColor='rgba(0,0,0,0.07)'">
-        <div style="font-size:28px;margin-bottom:.4rem">📋</div>
-        <div style="font-size:14px;font-weight:700">政見主張</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px">五大承諾</div>
-      </div>
-      <div onclick="showTab('survey',document.querySelector('.tab-btn:nth-child(5)'))" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;text-align:center;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#F4A824'" onmouseout="this.style.borderColor='rgba(0,0,0,0.07)'">
-        <div style="font-size:28px;margin-bottom:.4rem">📝</div>
-        <div style="font-size:14px;font-weight:700">填問卷</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px">了解民意</div>
-      </div>
-      <div onclick="showTab('events',document.querySelector('.tab-btn:nth-child(6)'))" style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;text-align:center;cursor:pointer;transition:all .2s" onmouseover="this.style.borderColor='#F4A824'" onmouseout="this.style.borderColor='rgba(0,0,0,0.07)'">
-        <div style="font-size:28px;margin-bottom:.4rem">📅</div>
-        <div style="font-size:14px;font-weight:700">活動時程</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px">4/11 投票日</div>
-      </div>
-    </div>
-
-    <!-- 投票戶號大卡 -->
-    <div onclick="showTab('guide',document.querySelector('.tab-btn:nth-child(2)'))" style="margin-top:.85rem;background:var(--navy);border-radius:var(--r);padding:1.25rem 1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:opacity .2s" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-      <div style="display:flex;align-items:center;gap:14px">
-        <span style="font-size:32px">🗒</span>
-        <div>
-          <div style="font-size:16px;font-weight:900;color:var(--sun)">投票戶號對應表</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.55);margin-top:2px">梁哲嘉・余盈賢・方冠凱・游子瑩・朱真瑩</div>
-        </div>
-      </div>
-      <div style="background:var(--sun);color:#fff;font-size:13px;font-weight:700;padding:7px 16px;border-radius:20px;white-space:nowrap;flex-shrink:0">查看 →</div>
-    </div>
-  </div>
-</section>
-<footer>
-  <div style="font-size:24px;margin-bottom:.4rem">☀️</div>
-  <strong>梁哲嘉・余盈賢・方冠凱・游子瑩・朱真瑩</strong><br>
-  <span class="sun">太陽帝國社區</span> 管委會委員競選團隊<br>
-  攜手打造更安全、透明、有溫度的社區生活<br><br>
-  <span style="font-size:10px;opacity:.4">© 2026 競選團隊 · GitHub Pages 免費託管</span>
-</footer>
+<!-- FEEDBACK -->
+<div class="feedback-anim success" id="fbSuccess">
+  <div class="fb-icon">⭐</div>
+  <div class="fb-text" id="fbSuccessText">集章成功！</div>
+  <div class="fb-sub" id="fbSuccessSub">太棒了，繼續找下一個！</div>
 </div>
-
-<!-- ════════════════════════════════
-     PANEL: 候選人
-════════════════════════════════ -->
-<div class="panel" id="p-candidates">
-<section id="s-candidates">
-<div class="wrap">
-  <span class="sec-tag">候選人介紹</span>
-  <h2 class="sec-title">五位在地守護者</h2>
-  <p class="sec-desc">不同專業背景，同一個使命——讓太陽帝國社區更安全、更有溫度。</p>
-
-  <!-- 梁哲嘉 LEADER -->
-  <div class="leader-card reveal">
-    <div class="leader-bar"></div>
-    <div class="leader-body">
-      <div class="leader-top">
-        <div class="leader-avatar">
-          <img src="photos/liang.jpg" alt="梁哲嘉" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <span class="avatar-fallback" style="display:none;background:var(--sun-pale);color:var(--sun-deep)">梁</span>
-        </div>
-        <div style="flex:1;min-width:180px">
-          <div class="leader-badge-card">⭐ 委員候選人</div>
-          <div class="leader-name-card">梁哲嘉</div>
-          <div class="leader-loc-card">C棟・337-2號 17樓</div>
-          <div class="leader-slogan">社區的守護者 · 行動的領航員</div>
-          <div class="leader-motto">「337-2號17樓 · 專業 · 效率 · 有溫度」</div>
-        </div>
-      </div>
-      <div class="info-grid">
-        <div class="info-box">
-          <div class="info-lbl">背景資歷</div>
-          <div class="ctags">
-            <span class="ctag" style="border-color:#FAC775;color:#633806;background:#FAEEDA">住商不動產長春加盟店 經理</span>
-            <span class="ctag" style="border-color:#FAC775;color:#633806;background:#FAEEDA">BNI菁商分會 創會主席</span>
-            <span class="ctag" style="border-color:#FAC775;color:#633806;background:#FAEEDA">東曜扶輪社 理事</span>
-            <span class="ctag" style="border-color:#FAC775;color:#633806;background:#FAEEDA">永和秀朗派出所 義警</span>
-          </div>
-        </div>
-        <div class="info-box">
-          <div class="info-lbl">核心亮點</div>
-          <div style="font-size:12.5px;color:var(--sub);line-height:1.75">以「管理品質 = 房屋保值」視角監督社區；曾於花蓮救災領導 200 多人團隊，具備危機整合與冷靜決策的實戰能力。</div>
-        </div>
-      </div>
-      <div class="info-lbl" style="margin-bottom:6px">三大核心承諾</div>
-      <ul class="cpromises" style="color:var(--sun-deep)">
-        <li><strong>安全守護：</strong>借鏡義警與救災指揮經驗，建立完整安全 SOP，全面盯緊門禁、監視器死角與電梯維護。</li>
-        <li><strong>社區活力：</strong>運用 BNI 籌劃能力與扶輪社資源，定期舉辦節慶派對、講座與鄰里互動活動。</li>
-        <li><strong>透明溝通：</strong>導入商業效率精神與反饋追蹤機制，確保每一筆管理費花在刀口上，住戶隨時知道進度。</li>
-      </ul>
-      <div class="cquote">「發言是為了守護正義，行動是為了創造改變。請給我機會，讓太陽帝國成為您最引以為傲的家！」</div>
-    </div>
-  </div>
-
-  <div class="cands">
-    <!-- 余盈賢 -->
-    <div class="ccard reveal">
-      <div class="ccard-bar" style="background:#185FA5"></div>
-      <div class="ccard-body">
-        <div class="ccard-head">
-          <div class="avatar" style="background:#E6F1FB;color:#0C447C">
-            <img src="photos/yu.jpg" alt="余盈賢" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <span class="avatar-fallback" style="display:none;background:#E6F1FB;color:#0C447C">余</span>
-          </div>
-          <div><div class="cname">余盈賢</div><div class="cloc">C棟・337號 29樓</div></div>
-        </div>
-        <div class="cslogan" style="border-color:#185FA5;color:#185FA5">讓專業守護我們的家，用溫度連結鄰里情</div>
-        <div class="cmotto">337號29樓 · 專業委員 · 講師教練</div>
-        <div class="info-lbl">背景資歷</div>
-        <div class="ctags">
-          <span class="ctag" style="border-color:#B5D4F4;color:#0C447C;background:#E6F1FB">企業講師・蓋洛普教練</span>
-          <span class="ctag" style="border-color:#B5D4F4;color:#0C447C;background:#E6F1FB">史丹佛設計人生教練</span>
-          <span class="ctag" style="border-color:#B5D4F4;color:#0C447C;background:#E6F1FB">外商行銷主管</span>
-          <span class="ctag" style="border-color:#B5D4F4;color:#0C447C;background:#E6F1FB">社區 4屆主委・3屆監委</span>
-          <span class="ctag" style="border-color:#B5D4F4;color:#0C447C;background:#E6F1FB">曾管 3,000 萬社區基金</span>
-        </div>
-        <div class="info-lbl">三大核心承諾</div>
-        <ul class="cpromises" style="color:#185FA5">
-          <li><strong>即時反饋：</strong>建立高效透明溝通管道，每件申訴案案有回覆，確保住戶聲音被看見。</li>
-          <li><strong>專業監督：</strong>以財務背景嚴格審查每份標案，杜絕浪費，守護社區資產保值。</li>
-          <li><strong>智慧共融：</strong>結合 AI 工具與教練專長，推動社區數位化，舉辦質感生活講座。</li>
-        </ul>
-        <div class="cquote">「您的這一票，讓專業與溫度在太陽帝國落地生根！」</div>
-      </div>
-    </div>
-
-    <!-- 方冠凱 -->
-    <div class="ccard reveal">
-      <div class="ccard-bar" style="background:#EF9F27"></div>
-      <div class="ccard-body">
-        <div class="ccard-head">
-          <div class="avatar" style="background:#FAEEDA;color:#633806">
-            <img src="photos/fang.jpg" alt="方冠凱" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <span class="avatar-fallback" style="display:none;background:#FAEEDA;color:#633806">方</span>
-          </div>
-          <div><div class="cname">方冠凱</div><div class="cloc">B棟・335-2號 26樓</div></div>
-        </div>
-        <div class="cslogan" style="border-color:#EF9F27;color:#854F0B">在地傳承守護 · 精實紀律執行</div>
-        <div class="cmotto">335-2號26樓 · 軍職職人 · 使命必達</div>
-        <div class="info-lbl">背景資歷</div>
-        <div class="ctags">
-          <span class="ctag" style="border-color:#FAC775;color:#633806;background:#FAEEDA">職業軍人背景</span>
-          <span class="ctag" style="border-color:#FAC775;color:#633806;background:#FAEEDA">南勢角在地成長 32 年</span>
-          <span class="ctag" style="border-color:#FAC775;color:#633806;background:#FAEEDA">100+ 車輛維修管理</span>
-          <span class="ctag" style="border-color:#FAC775;color:#633806;background:#FAEEDA">帶領 10 人專業團隊</span>
-        </div>
-        <div class="info-lbl">三大核心承諾</div>
-        <ul class="cpromises" style="color:#854F0B">
-          <li><strong>精準執行：</strong>落實「日日巡視、處處紀錄」，嚴格把關施工品質與進度。</li>
-          <li><strong>安全守護：</strong>全面強化消防、門禁安防，以軍事級嚴謹守護全棟安全。</li>
-          <li><strong>世代共融：</strong>規劃創意鄰里活動，拉近各年齡層距離，注入新活力。</li>
-        </ul>
-        <div class="cquote">「執行第一，紀律嚴明，守護家園。」</div>
-      </div>
-    </div>
-
-    <!-- 游子瑩 -->
-    <div class="ccard reveal">
-      <div class="ccard-bar" style="background:#D4537E"></div>
-      <div class="ccard-body">
-        <div class="ccard-head">
-          <div class="avatar" style="background:#FBEAF0;color:#72243E">
-            <img src="photos/you.jpg" alt="游子瑩" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <span class="avatar-fallback" style="display:none;background:#FBEAF0;color:#72243E">游</span>
-          </div>
-          <div><div class="cname">游子瑩</div><div class="cloc">A棟・331-1號 4樓</div></div>
-        </div>
-        <div class="cslogan" style="border-color:#D4537E;color:#993556">用心守護 · 母親視角 · 多元經驗</div>
-        <div class="cmotto">331-1號4樓 · 媽媽的眼光最細膩</div>
-        <div class="info-lbl">背景資歷</div>
-        <div class="ctags">
-          <span class="ctag" style="border-color:#F4C0D1;color:#72243E;background:#FBEAF0">房仲業秘書</span>
-          <span class="ctag" style="border-color:#F4C0D1;color:#72243E;background:#FBEAF0">設計公司老闆特助</span>
-          <span class="ctag" style="border-color:#F4C0D1;color:#72243E;background:#FBEAF0">汽車業副理</span>
-          <span class="ctag" style="border-color:#F4C0D1;color:#72243E;background:#FBEAF0">兩個學齡前女兒的媽媽</span>
-          <span class="ctag" style="border-color:#F4C0D1;color:#72243E;background:#FBEAF0">從小在南勢角成長</span>
-        </div>
-        <div class="info-lbl">三大核心承諾</div>
-        <ul class="cpromises" style="color:#993556">
-          <li><strong>友善育兒：</strong>打造安全遊戲空間與友善生活動線，讓孩子安心成長。</li>
-          <li><strong>品質提升：</strong>強化公共空間清潔標準與設施維護，全面升級居住品質。</li>
-          <li><strong>用心傾聽：</strong>成為住戶與管委會最貼心的橋樑，促進世代交流。</li>
-        </ul>
-        <div class="cquote">「媽媽的眼光最嚴格，也最溫柔。」</div>
-      </div>
-    </div>
-
-    <!-- 朱真瑩 -->
-    <div class="ccard reveal">
-      <div class="ccard-bar" style="background:#534AB7"></div>
-      <div class="ccard-body">
-        <div class="ccard-head">
-          <div class="avatar" style="background:#EEEDFE;color:#3C3489">
-            <img src="photos/zhu.jpg" alt="朱真瑩" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <span class="avatar-fallback" style="display:none;background:#EEEDFE;color:#3C3489">朱</span>
-          </div>
-          <div><div class="cname">朱真瑩</div><div class="cloc">店面・A1-1F 天河手工藝行</div></div>
-        </div>
-        <div class="cslogan" style="border-color:#534AB7;color:#3C3489">職人匠心編織鄰里，祖母深情守護家園</div>
-        <div class="cmotto">A1-1F · 天河手藝 · 細膩 · 守護 · 溫度</div>
-        <div class="info-lbl">背景資歷</div>
-        <div class="ctags">
-          <span class="ctag" style="border-color:#CECBF6;color:#3C3489;background:#EEEDFE">天河手工藝行 傳承經營者</span>
-          <span class="ctag" style="border-color:#CECBF6;color:#3C3489;background:#EEEDFE">在地深耕 50 載</span>
-          <span class="ctag" style="border-color:#CECBF6;color:#3C3489;background:#EEEDFE">五位孫輩的祖母</span>
-          <span class="ctag" style="border-color:#CECBF6;color:#3C3489;background:#EEEDFE">社區一樓服務窗口</span>
-        </div>
-        <div class="info-lbl">三大核心承諾</div>
-        <ul class="cpromises" style="color:#534AB7">
-          <li><strong>細膩監督：</strong>以職人品質控管嚴謹態度，監督修繕細節，確保管理費花得值得。</li>
-          <li><strong>環境安全：</strong>以祖母守護孫輩的心，強化公共空間安防與衛生管理。</li>
-          <li><strong>暖心連結：</strong>舉辦手作課程與親子活動，凝聚溫馨社區情誼。</li>
-        </ul>
-        <div class="cquote">「針線編織五十年，真心守護太陽帝國每一位家人！」</div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-</div>
-
-<!-- ════════════════════════════════
-     PANEL: 政見
-════════════════════════════════ -->
-<div class="panel" id="p-promises">
-<section id="s-promises">
-  <div class="promises-bg">
-    <div class="promises-inner">
-      <span class="sec-tag">五人共同政見</span>
-      <h2 class="sec-title">五大核心承諾</h2>
-      <p class="sec-desc">集結五位候選人的多元專業，帶來具體、可執行、可追蹤的真實改變。</p>
-      <div class="pgrid">
-        <div class="pcard reveal"><span class="picon">🔒</span><div class="ptitle">安全全面升級</div><div class="pdesc">結合義警實務與軍旅安防經驗，建立完整安全 SOP，強化門禁、監視器與消防設施，24 小時無縫守護。</div></div>
-        <div class="pcard reveal"><span class="picon">💰</span><div class="ptitle">財務完全透明</div><div class="pdesc">每月公告完整收支明細，以不動產與財務專業嚴格審查標案，杜絕浪費，讓每分管理費花在刀口上。</div></div>
-        <div class="pcard reveal"><span class="picon">📱</span><div class="ptitle">數位智慧治理</div><div class="pdesc">導入 AI 管理工具與數位通報平台，報修 24 小時內有結果，決策公開，住戶隨時掌握動態。</div></div>
-        <div class="pcard reveal"><span class="picon">🌸</span><div class="ptitle">友善溫暖社區</div><div class="pdesc">舉辦節慶活動、手作課程、質感講座，關照兒童、長輩與所有住戶，重建溫暖的鄰里日常。</div></div>
-        <div class="pcard reveal"><span class="picon">🏗</span><div class="ptitle">公設精準維護</div><div class="pdesc">推行「日日巡視、處處紀錄」，從電梯到水塔，每項公設都有標準流程、追蹤紀錄與完整交代。</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-</div>
-
-<!-- ════════════════════════════════
-     PANEL: 問卷
-════════════════════════════════ -->
-<div class="panel" id="p-survey">
-<section id="s-survey">
-  <div class="form-bg">
-    <div class="form-inner">
-      <span class="sec-tag">居民參與</span>
-      <h2 class="sec-title" style="margin-bottom:.4rem">問卷 · 提問</h2>
-      <p class="sec-desc">您的聲音是我們最重要的依據。</p>
-      <div class="form-card">
-        <div class="form-head"><h3>太陽帝國社區意見平台</h3><p>① 社區滿意度問卷　② 向候選人提問</p></div>
-        <div class="ftabs">
-          <button class="ftab on" onclick="ftab('f-survey','f-qa',this)">📋 滿意度問卷</button>
-          <button class="ftab" onclick="ftab('f-qa','f-survey',this)">❓ 向候選人提問</button>
-        </div>
-        <div class="fpanel on" id="f-survey">
-          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfxhARZxMVNUCOWvUeHbRCkbCDSv_qFCrxvRloPXeoM8muqeg/viewform?embedded=true" title="社區滿意度問卷" loading="lazy">載入中…</iframe>
-        </div>
-        <div class="fpanel" id="f-qa">
-          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSczaf3yFAxmBGuMSczJ08AeUYUe6MMCr4sGFuUYSQH97XdOKg/viewform?embedded=true" title="向候選人提問" loading="lazy">載入中…</iframe>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-</div>
-
-<!-- ════════════════════════════════
-     PANEL: 投票
-════════════════════════════════ -->
-
-<!-- ════════════════════════════════
-     PANEL: 活動
-════════════════════════════════ -->
-<div class="panel" id="p-events">
-<section id="s-events">
-<div class="wrap">
-  <span class="sec-tag">競選活動</span>
-  <h2 class="sec-title">活動時程</h2>
-  <p class="sec-desc">歡迎親自來聽、來問、來認識我們</p>
-  <div class="tl">
-    <div class="tl-item reveal"><div class="tl-dot"></div><div class="tl-date">即日起 ～ 4/10（四）</div><div class="tl-title">線上問卷開放填寫</div><div class="tl-detail">點「問卷」分頁即可填寫，讓我們聽見您的聲音！</div></div>
-    <div class="tl-item reveal"><div class="tl-dot"></div><div class="tl-date">選前期間</div><div class="tl-title">五位候選人掃樓拜訪</div><div class="tl-detail">梁哲嘉率領五位候選人親自逐戶登門，面對面聆聽每位住戶的需求與意見，不缺席、不打馬虎眼。</div></div>
-    <div class="tl-item reveal"><div class="tl-dot"></div><div class="tl-date">4/10（四）23:59 截止</div><div class="tl-title">線上問卷截止</div><div class="tl-detail">所有問卷意見將彙整公開，作為政見優先順序的重要依據。</div></div>
-    <div class="tl-item reveal"><div class="tl-dot vote"></div><div class="tl-date" style="color:var(--sun);font-weight:700">4 月 11 日（六）</div><div class="tl-title vote">🗳 區權會 · 正式投票日</div><div class="tl-detail">請攜帶相關證件，準時出席投票。每一票都是太陽帝國美好未來的關鍵！</div></div>
-  </div>
-</div>
-</section>
-<footer>
-  <div style="font-size:24px;margin-bottom:.4rem">☀️</div>
-  <strong>梁哲嘉・余盈賢・方冠凱・游子瑩・朱真瑩</strong><br>
-  <span class="sun">太陽帝國社區</span> 管委會委員競選團隊<br><br>
-  <span style="font-size:10px;opacity:.4">© 2026 競選團隊 · GitHub Pages 免費託管</span>
-</footer>
+<div class="feedback-anim already" id="fbAlready">
+  <div class="fb-icon">😊</div>
+  <div class="fb-text">已經集過這個囉！</div>
+  <div class="fb-sub" id="fbAlreadySub">繼續找其他地點吧！</div>
 </div>
 
 <script>
-/* ── 倒數計時 ── */
-function countdown(){
-  const t=new Date('2026-04-11T09:00:00+08:00'),now=new Date();
-  let d=Math.max(0,t-now);
-  const days=Math.floor(d/86400000);d%=86400000;
-  const h=Math.floor(d/3600000);d%=3600000;
-  const m=Math.floor(d/60000);
-  const s=Math.floor((d%60000)/1000);
-  document.getElementById('cd-d').textContent=String(days).padStart(2,'0');
-  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
-  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
-  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
-}
-countdown();setInterval(countdown,1000);
+// ===== 地點設定 =====
+const LOCATIONS = [
+  {id:1,  name:'空中玻璃屋',          emoji:'🔮'},
+  {id:2,  name:'空中花園',            emoji:'🌿'},
+  {id:3,  name:'兒童遊戲室',          emoji:'🎠'},
+  {id:4,  name:'健身房',              emoji:'💪'},
+  {id:5,  name:'媽媽教室',            emoji:'👩'},
+  {id:6,  name:'大廳AED',             emoji:'❤️'},
+  {id:7,  name:'佈告欄',              emoji:'📋'},
+  {id:8,  name:'防災中心',            emoji:'🚨'},
+  {id:9,  name:'包裹室',              emoji:'📦'},
+  {id:10, name:'雨水撲滿(後門草皮)',   emoji:'🌧️'},
+];
 
-/* ── 數字滾動 ── */
-function animN(el,target,ms){
-  const s=performance.now();
-  (function f(now){
-    el.textContent=Math.round(Math.min((now-s)/ms,1)*target);
-    if((now-s)<ms)requestAnimationFrame(f);
-  })(performance.now());
-}
-animN(document.getElementById('s-support'),183,1400);
-animN(document.getElementById('s-survey'),97,1200);
+// ===== localStorage helpers =====
+const LS = {
+  get: k => { try{ return JSON.parse(localStorage.getItem(k)); }catch{ return null; } },
+  set: (k,v) => localStorage.setItem(k, JSON.stringify(v)),
+  del: k => localStorage.removeItem(k)
+};
 
-/* ── 分頁切換（手機 + 桌面共用） ── */
-const panels=['home','guide','candidates','promises','survey','events'];
-function showPanel(id){
-  panels.forEach(p=>{
-    const el=document.getElementById('p-'+p);
-    if(el) el.classList.toggle('active', p===id);
+// ===== 報名 =====
+function startActivity() {
+  const name  = document.getElementById('regName').value.trim();
+  const unit  = document.getElementById('regUnit').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  if (!name)  { alert('請填寫小朋友的姓名！'); document.getElementById('regName').focus(); return; }
+  if (!unit)  { alert('請填寫戶號（門牌號碼）！'); document.getElementById('regUnit').focus(); return; }
+  if (!phone) { alert('請填寫家長聯絡電話！'); document.getElementById('regPhone').focus(); return; }
+  if (phone.replace(/\D/g,'').length < 8) { alert('請輸入正確的電話號碼（至少8碼）！'); return; }
+
+  LS.set('sun_user', {name, unit, phone});
+
+  // 靜悄悄送到 Google 表單
+  submitToGoogleForm(name, unit, phone);
+
+  showMain();
+}
+
+function submitToGoogleForm(name, unit, phone) {
+  const FORM_ID = '1FAIpQLSfJ2Qg9UVDagpkH23gvsBZOSFozMHHKAGyQfTenhz7sSAiURg';
+  const url = 'https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse';
+  const body = new FormData();
+  body.append('entry.628971069',  name);   // 姓名
+  body.append('entry.2088059004', unit);   // 戶號
+  body.append('entry.1598228020', phone);  // 電話
+  // 用 no-cors 靜默送出，不等回應、不影響使用者
+  fetch(url, { method: 'POST', mode: 'no-cors', body })
+    .catch(() => {}); // 失敗也不提示，不影響活動
+}
+
+function showMain() {
+  const user = LS.get('sun_user');
+  if (!user) return;
+  document.getElementById('registerScreen').classList.add('hidden');
+  document.getElementById('mainScreen').style.display = 'block';
+  document.getElementById('showName').textContent = user.name;
+  document.getElementById('showUnit').textContent = user.unit;
+  renderStamps();
+  checkUrlParam();
+}
+
+function resetActivity() {
+  if (!confirm('確定要清除資料重新報名嗎？集章紀錄也會一併清除。')) return;
+  LS.del('sun_user');
+  LS.del('sun_empire_collected');
+  location.reload();
+}
+
+// ===== 集章資料 =====
+function getCollected() { return LS.get('sun_empire_collected') || []; }
+function saveCollected(arr) { LS.set('sun_empire_collected', arr); }
+
+// ===== 渲染 =====
+function renderStamps() {
+  const collected = getCollected();
+  const grid = document.getElementById('stampGrid');
+  grid.innerHTML = '';
+  LOCATIONS.forEach(loc => {
+    const d = document.createElement('div');
+    d.className = 'stamp' + (collected.includes(loc.id) ? ' collected' : '');
+    d.innerHTML = `<span>${loc.emoji}</span><span class="stamp-name">${loc.name}</span>`;
+    grid.appendChild(d);
   });
-  // 桌面 topnav active
-  document.querySelectorAll('.tn-btn').forEach(b=>b.classList.remove('active'));
-  const tnBtn=document.getElementById('tn-'+id);
-  if(tnBtn) tnBtn.classList.add('active');
-  // 手機 tabbar active
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  const tabIndex={'home':1,'guide':2,'candidates':3,'promises':4,'survey':5,'events':6};
-  const tabBtn=document.querySelector('.tab-btn:nth-child('+tabIndex[id]+')');
-  if(tabBtn) tabBtn.classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
-  triggerReveal();
-}
-function showTab(id, btn){
-  showPanel(id);
+  const n = collected.length;
+  document.getElementById('count').textContent = n;
+  const bar = document.getElementById('bar');
+  bar.style.width = (n/10*100) + '%';
+  bar.className = 'bar-fill' + (n>0 ? ' has-progress' : '');
+  document.getElementById('completeBtn').disabled = n < 1; // 至少集1個就可兌獎
 }
 
-/* ── 問卷 Tab ── */
-function ftab(show,hide,btn){
-  document.getElementById(show).classList.add('on');
-  document.getElementById(hide).classList.remove('on');
-  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on'));
-  btn.classList.add('on');
+// ===== 集章 =====
+function collectStamp(locId) {
+  const collected = getCollected();
+  const loc = LOCATIONS.find(l => l.id === locId);
+  if (!loc) return;
+  if (collected.includes(locId)) {
+    document.getElementById('fbAlreadySub').textContent = `「${loc.name}」已經集過囉，繼續找其他地點！`;
+    showFeedback('fbAlready'); return;
+  }
+  collected.push(locId);
+  saveCollected(collected);
+  renderStamps();
+  document.getElementById('fbSuccessText').textContent = `「${loc.name}」集章成功！`;
+  document.getElementById('fbSuccessSub').textContent =
+    collected.length===10 ? '🎉 全部集滿！快去領取憑證！' : `還差 ${10-collected.length} 個，繼續加油！`;
+  showFeedback('fbSuccess');
 }
 
-/* ── Reveal 動畫 ── */
-const ro=new IntersectionObserver(e=>{
-  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')});
-},{threshold:.1});
-function triggerReveal(){
-  document.querySelectorAll('.reveal:not(.in)').forEach(el=>ro.observe(el));
+function showFeedback(id) {
+  const el = document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
 }
-triggerReveal();
+
+// ===== QR SCANNER (jsQR + file input) =====
+// 預先載入 jsQR
+(function loadJsQR(){
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
+  s.onerror = () => {
+    const s2 = document.createElement('script');
+    s2.src = 'https://unpkg.com/jsqr@1.4.0/dist/jsQR.js';
+    document.head.appendChild(s2);
+  };
+  document.head.appendChild(s);
+})();
+
+function handleFileInput(input) {
+  const file = input.files[0];
+  if (!file) return;
+  input.value = ''; // 重置讓同一張圖可重複選
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+      if (typeof jsQR === 'undefined') {
+        alert('掃描器載入中，請稍後再試！');
+        return;
+      }
+
+      const code = jsQR(imageData.data, canvas.width, canvas.height, {
+        inversionAttempts: 'attemptBoth'
+      });
+
+      if (code) {
+        handleQRResult(code.data);
+      } else {
+        alert('無法辨識 QR Code，請確認：\n1. QR Code 在畫面中清晰可見\n2. 光線充足\n3. 重新拍照試試');
+      }
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// 保留空的 openScanner/closeScanner 避免其他地方呼叫報錯
+function openScanner() {
+  document.getElementById('qrFileInput').click();
+}
+function closeScanner() {}
+
+function handleQRResult(data) {
+  document.getElementById('scanFlash').classList.add('show');
+  setTimeout(()=>document.getElementById('scanFlash').classList.remove('show'),400);
+  let locId=null;
+  // 亂碼對應表
+  const CODE_MAP = {
+    '1c6qj67el3e4': 1,
+    'ma6hczylhqpy': 2,
+    'ncyw40w85xoz': 3,
+    't2207ewvppjg': 4,
+    '1dcp06iqcnw2': 5,
+    'hutcj1aafbqj': 6,
+    'zt67wws9b6kw': 7,
+    '9x6bu7b6zq03': 8,
+    'tsev4offpcli': 9,
+    'psfnn1pmm2x6': 10,
+  };
+  try {
+    const url = new URL(data);
+    // 方式1：從 ?loc=N 參數抓（網頁內掃描跳轉用）
+    const p = new URLSearchParams(url.search);
+    if(p.get('loc')) locId = parseInt(p.get('loc'));
+    // 方式2：從亂碼路徑 /loc/亂碼.html 抓（QR Code直掃用）
+    if(!locId) {
+      const m = url.pathname.match(/\/loc\/([a-z0-9]+)\.html$/);
+      if(m && CODE_MAP[m[1]]) locId = CODE_MAP[m[1]];
+    }
+  } catch(e) {
+    // 方式3：純文字比對亂碼
+    for(const [code, id] of Object.entries(CODE_MAP)) {
+      if(data.includes(code)) { locId = id; break; }
+    }
+  }
+  setTimeout(()=>{
+    closeScanner();
+    if(locId&&locId>=1&&locId<=10) collectStamp(locId);
+    else alert('這個 QR Code 不是活動的集章碼！\n請掃描社區立牌上的 QR Code。');
+  },500);
+}
+
+// ===== 產生憑證（直接用報名資料） =====
+function generateVoucher() {
+  const user = LS.get('sun_user');
+  if(!user){ alert('找不到報名資料，請重新整理頁面。'); return; }
+  const now=new Date();
+  const timeStr=`${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} `+
+    `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const code='SUN-'+now.getFullYear().toString().slice(2)+
+    String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'-'+
+    user.phone.replace(/\D/g,'').slice(-4)+'-'+Math.floor(Math.random()*900+100);
+  document.getElementById('v-name').textContent  = user.name;
+  document.getElementById('v-unit').textContent  = user.unit;
+  document.getElementById('v-phone').textContent = user.phone;
+  document.getElementById('v-time').textContent  = timeStr;
+  document.getElementById('v-code').textContent  = code;
+  const collected = getCollected();
+  document.getElementById('v-count').textContent = collected.length + ' / 10';
+  document.getElementById('v-stamps').innerHTML = LOCATIONS.map(l=>
+    `<span class="voucher-stamp" style="opacity:${collected.includes(l.id)?'1':'0.2'}">${l.emoji}</span>`
+  ).join('');
+  document.getElementById('voucher').classList.add('show');
+}
+
+// ===== URL 參數（備用：QR Code 直連 ?loc=N） =====
+function checkUrlParam() {
+  const p=new URLSearchParams(window.location.search);
+  const loc=p.get('loc');
+  if(loc){ const id=parseInt(loc); if(id>=1&&id<=10){ setTimeout(()=>collectStamp(id),400); history.replaceState({},'',window.location.pathname); } }
+}
+
+// ===== 星星裝飾 =====
+function createStars() {
+  const c=document.getElementById('stars');
+  ['⭐','🌟','✨','💫'].forEach(e=>{
+    for(let i=0;i<3;i++){
+      const s=document.createElement('div'); s.className='star'; s.textContent=e;
+      s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
+      s.style.animationDelay=Math.random()*3+'s'; s.style.fontSize=(10+Math.random()*14)+'px';
+      c.appendChild(s);
+    }
+  });
+}
+
+// ===== 活動團隊 =====
+const PROFILES = {
+  liang: {
+    name: '梁哲嘉',
+    loc: 'C棟 337-2號 17樓',
+    slogan: '社區的守護者·行動的領航員',
+    tags: ['永和秀朗派出所義警', 'BNI菁商分會創會主席', '永和獅子會監事', '不動產專業副理'],
+    strengths: [
+      '以不動產專業監督公設維護與財務，讓家園保值',
+      '曾領導200人救災團隊，資源整合、冷靜應對',
+    ],
+    promises: [
+      ['家園守護', '優化安全SOP，盯門禁與電梯'],
+      ['社區活力', '舉辦節慶講座，找回鄰里溫度'],
+      ['透明溝通', '導入商業精神，高效治理'],
+    ],
+  },
+  yu: {
+    name: '余盈賢',
+    loc: 'C棟 337號 29樓',
+    slogan: '讓專業守護我們的家，用溫度連結鄰里情',
+    tags: ['企業講師、蓋洛普教練', '外商行銷主管', '台北中型社區4屆主委、3屆監委'],
+    strengths: [
+      '善化紛爭為社區共識，高效管理庶務',
+      '曾管3,000萬基金，成功爭取免費RC水塔',
+    ],
+    promises: [
+      ['行動橋樑', '溝通管委會與住戶'],
+      ['資產保值', '嚴格監督，省錢即保值'],
+      ['智慧共融', 'AI融入社區治理'],
+    ],
+  },
+  fang: {
+    name: '方冠凱',
+    loc: 'B棟 335-2號 26樓',
+    slogan: '在地傳承守護·精實紀律執行',
+    tags: ['在地成長32年', '職業軍人背景', '100+車輛管理', '帶領10人專業團隊'],
+    strengths: [
+      '日日巡視、精準紀錄，確保高品質標準',
+      '軍事級嚴謹執行消防設施巡察與門禁管理',
+    ],
+    promises: [
+      ['精準執行', '公設維護落實「日巡處錄」'],
+      ['安全守護', '防災門禁軍事級嚴謹'],
+      ['世代共融', '規劃創意鄰里活動'],
+    ],
+  },
+};
+
+function toggleTeam() {
+  const panel = document.getElementById('teamPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  if(panel.style.display === 'none') closeProfile();
+}
+
+function showProfile(key) {
+  const p = PROFILES[key];
+  if(!p) return;
+  const card = document.getElementById('profileCard');
+  const content = document.getElementById('profileContent');
+
+  const tagsHtml = p.tags.map(t =>
+    `<span style="display:inline-block;padding:2px 8px;background:#E8FFF9;border-radius:10px;font-size:11px;color:#2D9B85;margin:2px;">${t}</span>`
+  ).join('');
+
+  const strengthsHtml = p.strengths.map(s =>
+    `<li style="font-size:12px;color:#555;margin-bottom:4px;">● ${s}</li>`
+  ).join('');
+
+  const promisesHtml = p.promises.map(([title, desc]) =>
+    `<div style="margin-bottom:5px;font-size:12px;"><span style="font-weight:700;color:#FF6B35;">【${title}】</span><span style="color:#555;">${desc}</span></div>`
+  ).join('');
+
+  content.innerHTML = `
+    <div style="font-size:16px;font-weight:900;color:#2D3436;">${p.name}</div>
+    <div style="font-size:12px;color:#888;margin-bottom:6px;">📍 ${p.loc}</div>
+    <div style="font-size:12px;color:#4ECDC4;font-weight:700;margin-bottom:8px;">「${p.slogan}」</div>
+    <div style="margin-bottom:8px;">${tagsHtml}</div>
+    <div style="font-size:12px;font-weight:700;color:#2D3436;margin-bottom:4px;">核心優勢</div>
+    <ul style="margin:0 0 8px 0;padding:0;list-style:none;">${strengthsHtml}</ul>
+    <div style="font-size:12px;font-weight:700;color:#2D3436;margin-bottom:4px;">三大承諾</div>
+    ${promisesHtml}
+  `;
+  card.style.display = 'block';
+}
+
+function closeProfile() {
+  document.getElementById('profileCard').style.display = 'none';
+}
+
+// ===== INIT =====
+createStars();
+// 若已報名，直接進主畫面
+if(LS.get('sun_user')) {
+  showMain();
+} else {
+  document.getElementById('registerScreen').classList.remove('hidden');
+}
 </script>
 </body>
 </html>
