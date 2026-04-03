@@ -628,7 +628,7 @@ function checkUrlParam() {
   if(loc){ const id=parseInt(loc); if(id>=1&&id<=10){ setTimeout(()=>collectStamp(id),400); history.replaceState({},'',window.location.pathname); } }
 }
 
-// ===== 星星裝飾 ===== 
+// ===== 星星裝飾 =====
 function createStars() {
   const c=document.getElementById('stars');
   ['⭐','🌟','✨','💫'].forEach(e=>{
