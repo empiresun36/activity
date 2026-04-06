@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>活動 FAQ｜太陽帝國社區兒童節</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{ --sun:#FFD93D;--orange:#FF6B35;--sky:#4ECDC4;--pink:#FF6B9D;--green:#95E1D3;--bg:#FFF9F0;--dark:#2D3436; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);min-height:100vh;}
+
+  .sky-bg{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,#B8E4F9 0%,#FFF9F0 60%);z-index:-1;}
+
+  /* HEADER */
+  .header{
+    background:linear-gradient(135deg,var(--sky),#2EB8AE);
+    padding:20px 20px 24px;
+    display:flex;align-items:center;gap:12px;
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,0.1);
+  }
+  .back-btn{
+    background:rgba(255,255,255,0.2);border:none;color:white;
+    width:38px;height:38px;border-radius:50%;font-size:18px;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;text-decoration:none;
+  }
+  .header-title{color:white;font-size:18px;font-weight:900;}
+  .header-sub{color:rgba(255,255,255,0.8);font-size:12px;margin-top:2px;}
+
+  /* CONTENT */
+  .content{padding:16px 16px 40px;}
+
+  /* CATEGORY */
+  .category{margin-bottom:20px;}
+  .cat-title{
+    display:flex;align-items:center;gap:8px;
+    font-size:15px;font-weight:900;color:var(--dark);
+    margin-bottom:10px;padding:8px 12px;
+    background:white;border-radius:14px;
+    border-left:4px solid var(--sky);
+    box-shadow:0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  /* FAQ ITEM */
+  .faq-item{
+    background:white;border-radius:14px;
+    margin-bottom:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    overflow:hidden;
+  }
+  .faq-q{
+    padding:14px 16px;
+    display:flex;align-items:center;justify-content:space-between;
+    cursor:pointer;gap:10px;
+    font-size:14px;font-weight:700;color:var(--dark);
+    user-select:none;
+  }
+  .faq-q:active{background:#F5F5F5;}
+  .faq-icon{
+    font-size:18px;flex-shrink:0;
+    transition:transform 0.3s;color:var(--sky);
+    font-weight:900;
+  }
+  .faq-item.open .faq-icon{transform:rotate(45deg);}
+  .faq-a{
+    display:none;
+    padding:0 16px 14px;
+    font-size:13px;color:#555;line-height:1.8;
+    border-top:1px solid #F0F0F0;
+    padding-top:12px;
+  }
+  .faq-item.open .faq-a{display:block;}
+  .faq-a .highlight{
+    background:#FFF9F0;border-radius:8px;
+    padding:8px 12px;margin-top:8px;
+    border-left:3px solid var(--orange);
+    font-size:12px;color:#CC4400;
+  }
+  .faq-a code{
+    background:#F0F0F0;padding:2px 6px;border-radius:6px;
+    font-family:monospace;font-size:12px;color:#333;
+    word-break:break-all;
+  }
+  .faq-a ol, .faq-a ul{padding-left:18px;margin-top:6px;}
+  .faq-a li{margin-bottom:4px;}
+
+  /* BACK TO TOP */
+  .back-top{
+    display:block;text-align:center;margin:20px auto 0;
+    padding:12px 24px;
+    background:linear-gradient(135deg,var(--sun),var(--orange));
+    color:white;font-size:14px;font-weight:900;
+    border-radius:16px;border:none;cursor:pointer;
+    font-family:'Noto Sans TC',sans-serif;
+    box-shadow:0 4px 16px rgba(255,107,53,0.3);
+    text-decoration:none;
+    width:calc(100% - 32px);
+  }
+</style>
+</head>
+<body>
+<div class="sky-bg"></div>
+
+<div class="header">
+  <a href="index.html" class="back-btn">←</a>
+  <div>
+    <div class="header-title">❓ 活動 FAQ</div>
+    <div class="header-sub">工作人員應變手冊｜太陽帝國社區兒童節</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- 手機與網頁 -->
+  <div class="category">
+    <div class="cat-title">📱 手機與網頁問題</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>網頁打不開怎麼辦？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        確認手機有連網路（WiFi 或行動數據）。網址請重新輸入：
+        <code>https://empiresun36.github.io/activity/</code>
+        不要用舊的書籤。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>網頁打開是空白或顯示錯誤？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        清除瀏覽器快取後重新開啟。
+        <ol>
+          <li>iPhone：設定 → Safari → 清除歷史記錄與網站資料</li>
+          <li>Android：Chrome → 設定 → 清除瀏覽資料</li>
+        </ol>
+        <div class="highlight">若還是舊版本，在網址後加 <code>?v=5</code> 強制更新</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>沒有智慧型手機怎麼辦？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        由工作人員協助，用工作人員的手機代為掃描集章，最後截圖憑證給住戶保存。
+      </div>
+    </div>
+  </div>
+
+  <!-- 掃描問題 -->
+  <div class="category">
+    <div class="cat-title">📷 掃描問題</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>按掃描按鈕出現「Permission denied」？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        需要開啟相機權限：
+        <ol>
+          <li><b>iPhone：</b>設定 → Safari → 相機 → 選「允許」</li>
+          <li><b>Android：</b>設定 → 應用程式 → Chrome → 權限 → 相機 → 允許</li>
+        </ol>
+        設定完後回到網頁重新整理再試。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>相機開了但一直掃不到？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        <ol>
+          <li>確認 QR Code 立牌是<b>白底黑色</b>（不是黑底白色）</li>
+          <li>光線要充足，避免反光</li>
+          <li>距離保持 15～25 公分</li>
+          <li>手機保持穩定，等待 2～3 秒</li>
+        </ol>
+        <div class="highlight">改用手機內建相機直接掃 QR Code，掃到後點網址連結，一樣可以集章</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>掃到 QR Code 但沒跳出集章成功？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        確認掃的是本次活動的立牌。如果確定是活動立牌，請重新整理網頁再試一次。
+      </div>
+    </div>
+  </div>
+
+  <!-- 集章問題 -->
+  <div class="category">
+    <div class="cat-title">🗺️ 集章問題</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>集章紀錄不見了？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        集章記錄存在手機瀏覽器，以下情況會導致遺失：
+        <ul>
+          <li>更換瀏覽器</li>
+          <li>清除瀏覽器資料</li>
+          <li>換手機</li>
+        </ul>
+        請住戶用同一台手機同一個瀏覽器完成活動。若真的無法恢復，由工作人員現場酌情處理。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>同一個 QR Code 重複掃了？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        網頁會顯示「已經集過這個囉！」，不會重複計算，不影響集章進度，不用擔心。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>某個地點的 QR Code 立牌不見或損壞？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        馬上通知現場工作人員，由工作人員用自己的手機幫住戶補登該地點。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>集章數不滿10個可以兌獎嗎？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        正常情況下需集滿10個。
+        <div class="highlight">☔ 若當日遇大雨取消戶外地點，不滿10個亦可兌獎，以現場公告為準</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 兌獎問題 -->
+  <div class="category">
+    <div class="cat-title">🎁 兌獎問題</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>忘記截圖憑證怎麼辦？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        回到活動網頁，若集章紀錄還在，可重新點「領取完成憑證」再截圖。若資料已遺失，由工作人員現場酌情處理。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>如何防止重複兌獎？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        建議工作人員採用以下方式：
+        <ol>
+          <li>打開 Google 試算表報名資料</li>
+          <li>找到該住戶的戶號</li>
+          <li>兌獎後在旁邊欄位標記「✅已領取」</li>
+        </ol>
+        <div class="highlight">每戶以戶號為準，同一戶號只能兌換一次</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>如何判斷憑證是否被偽造？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        核對憑證上的防偽碼格式（SUN-日期-電話尾碼-亂數），以及戶號與電話是否與 Google 試算表報名資料相符。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>一戶多個小朋友，可以換多份嗎？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        每戶每人限換乙份，以戶號為準。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>禮品發完了怎麼辦？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        向住戶致歉說明，登記住戶資料，活動結束後另行安排補發或補償。
+      </div>
+    </div>
+  </div>
+
+  <!-- 雨天問題 -->
+  <div class="category">
+    <div class="cat-title">☔ 雨天問題</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>下雨了，活動還辦嗎？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        輕雨照常進行。大雨時取消戶外掃描點，兌換地點改至大廳，集章數不滿10個亦可兌獎。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>怎麼通知大家改變地點？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        <ol>
+          <li>透過社區 LINE 群組發通知</li>
+          <li>在原兌換地點（花園）張貼告示</li>
+          <li>引導住戶至大廳</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- 資料收集 -->
+  <div class="category">
+    <div class="cat-title">📊 資料收集問題</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>如何查看所有報名者資料？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        <ol>
+          <li>打開 Google 表單</li>
+          <li>點「回覆」頁籤</li>
+          <li>點右上角綠色試算表圖示</li>
+        </ol>
+        即可看到所有姓名、戶號、電話，即時更新。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>活動結束後資料怎麼處理？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        建議活動結束後將 Google 試算表下載備份，並於適當時間刪除表單，保護住戶個資。
+      </div>
+    </div>
+  </div>
+
+  <!-- 緊急狀況 -->
+  <div class="category">
+    <div class="cat-title">🚨 緊急狀況</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>網站突然掛掉怎麼辦？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        GitHub Pages 偶有維護，通常幾分鐘內恢復。
+        <div class="highlight">備用方案：工作人員手動在紙上記錄各地點打卡，集滿蓋章換禮</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>某地點 QR Code 無法掃描？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        工作人員至該地點確認立牌狀況，若損壞則移除，並公告該地點取消，其餘地點集章數到達即可兌獎。
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggle(this)">
+        <span>有住戶投訴不公平怎麼處理？</span><span class="faq-icon">+</span>
+      </div>
+      <div class="faq-a">
+        耐心說明活動規則，若有特殊情況由主辦委員現場裁量，以和諧為原則。
+      </div>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-top">← 回到活動首頁</a>
+
+</div>
+
+<script>
+function toggle(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // 關閉所有
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  // 若原本是關的，打開它
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
