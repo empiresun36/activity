@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大象舞台 - 和弦譜</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --chord-color: #d32f2f;
+            --accent-color: #f5f5f5;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --text-color: #e0e0e0;
+                --chord-color: #ff5252;
+                --accent-color: #1e1e1e;
+            }
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 { font-size: 1.5rem; margin-bottom: 5px; text-align: center; }
+        .info { text-align: center; font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px; }
+        .section {
+            background-color: var(--accent-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .section-title {
+            font-weight: bold;
+            color: var(--text-color);
+            border-bottom: 1px solid #555;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .chord {
+            color: var(--chord-color);
+            font-weight: bold;
+            display: inline-block;
+            min-width: 2.5rem;
+        }
+        .line { margin-bottom: 10px; }
+        .footer { text-align: center; font-size: 0.8rem; opacity: 0.5; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <h1>大象舞台</h1>
+    <div class="info">演唱：林宥嘉 | 原調：E (4/4 拍)</div>
+
+    <div class="section">
+        <span class="section-title">【前奏】</span>
+        <span class="chord">E</span> | <span class="chord">E</span> | <span class="chord">#Fm</span> | <span class="chord">#Fm</span>
+    </div>
+
+    <div class="section">
+        <span class="section-title">【Verse 1】</span>
+        <div class="line"><span class="chord">E</span></div>
+        我的媽媽 離開我已好幾十載
+        <div class="line"><span class="chord">#Fm</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">B</span></div>
+        那麼&emsp;&emsp;最近你還好嗎
+    </div>
+
+    <div class="section">
+        <span class="section-title">【Verse 2】</span>
+        <div class="line"><span class="chord">E</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">#Gm</span></div>
+        從前門口有個搖滾的大象舞台
+        <div class="line"><span class="chord">#Fm</span>&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">Am</span>&emsp;&emsp;&emsp;&emsp;<span class="chord">B7</span>&emsp;&emsp;&emsp;<span class="chord">E</span></div>
+        時光一去不回來
+    </div>
+
+    <div class="section">
+        <span class="section-title">【Chorus 1】</span>
+        <div class="line"><span class="chord">E</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">#Gm</span></div>
+        媽 媽&emsp;&emsp;我的&emsp;&emsp;媽 媽
+        <div class="line"><span class="chord">C7(4)</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">A</span></div>
+        你是世上最勇敢的人
+        <div class="line"><span class="chord">#Fm</span>&emsp;&emsp;&emsp;&emsp;<span class="chord">B</span>&emsp;&emsp;&emsp;&emsp;<span class="chord">#Gm</span>&emsp;&emsp;&emsp;<span class="chord">C7(4)</span></div>
+        一開始你不懂 一開始你顫抖
+        <div class="line"><span class="chord">A</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">B</span></div>
+        最後還是決定養我
+    </div>
+
+    <div class="section">
+        <span class="section-title">【Chorus 2】</span>
+        <div class="line"><span class="chord">E</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">#Gm</span></div>
+        媽 媽&emsp;&emsp;我的&emsp;&emsp;媽 媽
+        <div class="line"><span class="chord">C7(4)</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">A</span></div>
+        就是現在我很想念你
+        <div class="line"><span class="chord">#Fm</span>&emsp;&emsp;&emsp;&emsp;<span class="chord">B</span>&emsp;&emsp;&emsp;&emsp;<span class="chord">#Gm</span>&emsp;&emsp;&emsp;<span class="chord">C7(4)</span></div>
+        睡不著的時候 做美夢的時候
+        <div class="line"><span class="chord">A</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">B</span>&emsp;&emsp;&emsp;&emsp;&emsp;<span class="chord">E</span></div>
+        還是會幻想你牽著我 到大象舞台
+    </div>
+
+    <div class="footer">
+        Generated for Mobile View
+    </div>
+
+</body>
+</html>
